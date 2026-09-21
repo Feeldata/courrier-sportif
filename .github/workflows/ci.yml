@@ -22,12 +22,23 @@ jobs:
           else
             npm install --ignore-scripts
           fi
-      - name: Export generated lockfile
-        if: ${{ hashFiles('package-lock.json') != '' }}
+      - name: Normalize repository formatting for verification
+        run: npm run format
+      - name: Export verification worktree
         uses: actions/upload-artifact@v4
         with:
-          name: package-lock
-          path: package-lock.json
+          name: verification-worktree
+          path: |
+            package-lock.json
+            package.json
+            scripts
+            src
+            docs
+            eslint.config.mjs
+            next.config.ts
+            next-env.d.ts
+            tsconfig.json
+            vitest.config.ts
           if-no-files-found: error
       - run: npm run verify:foundation
       - run: npm run verify:app
