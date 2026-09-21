@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# tests / coverage
+coverage/
+
+# local tooling
+.DS_Store
+*.log
+
+# environment files: secrets and project credentials never belong in git
+.env
+.env.*
+!.env.example
+
+# Supabase local runtime state
+supabase/.branches/
+supabase/.temp/
