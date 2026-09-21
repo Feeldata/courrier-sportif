@@ -1,1 +1,1395 @@
-{"types":"export type Json =\n  | string\n  | number\n  | boolean\n  | null\n  | { [key: string]: Json | undefined }\n  | Json[]\n\nexport type Database = {\n  // Allows to automatically instantiate createClient with right options\n  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)\n  __InternalSupabase: {\n    PostgrestVersion: \"14.5\"\n  }\n  public: {\n    Tables: {\n      clubs: {\n        Row: {\n          city: string | null\n          country_code: string | null\n          created_at: string\n          entity_id: string\n          founded_year: number | null\n          official_name: string\n          short_name: string | null\n          slug: string | null\n          status: string\n          updated_at: string\n        }\n        Insert: {\n          city?: string | null\n          country_code?: string | null\n          created_at?: string\n          entity_id: string\n          founded_year?: number | null\n          official_name: string\n          short_name?: string | null\n          slug?: string | null\n          status?: string\n          updated_at?: string\n        }\n        Update: {\n          city?: string | null\n          country_code?: string | null\n          created_at?: string\n          entity_id?: string\n          founded_year?: number | null\n          official_name?: string\n          short_name?: string | null\n          slug?: string | null\n          status?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"clubs_entity_id_fkey\"\n            columns: [\"entity_id\"]\n            isOneToOne: true\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      competitions: {\n        Row: {\n          age_category: string\n          competition_type: string\n          country_code: string | null\n          created_at: string\n          entity_id: string\n          gender: string\n          level: number | null\n          name: string\n          organizer_name: string | null\n          short_name: string | null\n          status: string\n          updated_at: string\n        }\n        Insert: {\n          age_category?: string\n          competition_type: string\n          country_code?: string | null\n          created_at?: string\n          entity_id: string\n          gender?: string\n          level?: number | null\n          name: string\n          organizer_name?: string | null\n          short_name?: string | null\n          status?: string\n          updated_at?: string\n        }\n        Update: {\n          age_category?: string\n          competition_type?: string\n          country_code?: string | null\n          created_at?: string\n          entity_id?: string\n          gender?: string\n          level?: number | null\n          name?: string\n          organizer_name?: string | null\n          short_name?: string | null\n          status?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"competitions_entity_id_fkey\"\n            columns: [\"entity_id\"]\n            isOneToOne: true\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      duplicate_candidates: {\n        Row: {\n          created_at: string\n          duplicate_candidate_id: string\n          entity_a_id: string\n          entity_b_id: string\n          reason: Json\n          reviewed_at: string | null\n          similarity_score: number | null\n          status: string\n          updated_at: string\n        }\n        Insert: {\n          created_at?: string\n          duplicate_candidate_id?: string\n          entity_a_id: string\n          entity_b_id: string\n          reason?: Json\n          reviewed_at?: string | null\n          similarity_score?: number | null\n          status?: string\n          updated_at?: string\n        }\n        Update: {\n          created_at?: string\n          duplicate_candidate_id?: string\n          entity_a_id?: string\n          entity_b_id?: string\n          reason?: Json\n          reviewed_at?: string | null\n          similarity_score?: number | null\n          status?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"duplicate_candidates_entity_a_id_fkey\"\n            columns: [\"entity_a_id\"]\n            isOneToOne: false\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"duplicate_candidates_entity_b_id_fkey\"\n            columns: [\"entity_b_id\"]\n            isOneToOne: false\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      entities: {\n        Row: {\n          created_at: string\n          entity_id: string\n          entity_type: string\n          updated_at: string\n        }\n        Insert: {\n          created_at?: string\n          entity_id?: string\n          entity_type: string\n          updated_at?: string\n        }\n        Update: {\n          created_at?: string\n          entity_id?: string\n          entity_type?: string\n          updated_at?: string\n        }\n        Relationships: []\n      }\n      entity_aliases: {\n        Row: {\n          alias: string\n          alias_id: string\n          alias_type: string\n          created_at: string\n          entity_id: string\n          language_code: string | null\n          normalized_alias: string\n          valid_from: string | null\n          valid_to: string | null\n        }\n        Insert: {\n          alias: string\n          alias_id?: string\n          alias_type?: string\n          created_at?: string\n          entity_id: string\n          language_code?: string | null\n          normalized_alias: string\n          valid_from?: string | null\n          valid_to?: string | null\n        }\n        Update: {\n          alias?: string\n          alias_id?: string\n          alias_type?: string\n          created_at?: string\n          entity_id?: string\n          language_code?: string | null\n          normalized_alias?: string\n          valid_from?: string | null\n          valid_to?: string | null\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"entity_aliases_entity_id_fkey\"\n            columns: [\"entity_id\"]\n            isOneToOne: false\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      entity_merges: {\n        Row: {\n          merge_id: string\n          merged_at: string\n          merged_entity_id: string\n          reason: string | null\n          survivor_entity_id: string\n        }\n        Insert: {\n          merge_id?: string\n          merged_at?: string\n          merged_entity_id: string\n          reason?: string | null\n          survivor_entity_id: string\n        }\n        Update: {\n          merge_id?: string\n          merged_at?: string\n          merged_entity_id?: string\n          reason?: string | null\n          survivor_entity_id?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"entity_merges_merged_entity_id_fkey\"\n            columns: [\"merged_entity_id\"]\n            isOneToOne: true\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"entity_merges_survivor_entity_id_fkey\"\n            columns: [\"survivor_entity_id\"]\n            isOneToOne: false\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      external_ids: {\n        Row: {\n          created_at: string\n          entity_id: string\n          entity_type: string\n          external_id_id: string\n          external_url: string | null\n          external_value: string\n          provider: string\n          updated_at: string\n        }\n        Insert: {\n          created_at?: string\n          entity_id: string\n          entity_type: string\n          external_id_id?: string\n          external_url?: string | null\n          external_value: string\n          provider: string\n          updated_at?: string\n        }\n        Update: {\n          created_at?: string\n          entity_id?: string\n          entity_type?: string\n          external_id_id?: string\n          external_url?: string | null\n          external_value?: string\n          provider?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"external_ids_entity_id_fkey\"\n            columns: [\"entity_id\"]\n            isOneToOne: false\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      match_events: {\n        Row: {\n          created_at: string\n          event_id: string\n          event_type: string\n          match_id: string\n          metadata: Json\n          minute: number | null\n          period: string\n          player_id: string | null\n          related_player_id: string | null\n          sequence_number: number | null\n          stoppage_minute: number | null\n          team_id: string | null\n          updated_at: string\n        }\n        Insert: {\n          created_at?: string\n          event_id?: string\n          event_type: string\n          match_id: string\n          metadata?: Json\n          minute?: number | null\n          period?: string\n          player_id?: string | null\n          related_player_id?: string | null\n          sequence_number?: number | null\n          stoppage_minute?: number | null\n          team_id?: string | null\n          updated_at?: string\n        }\n        Update: {\n          created_at?: string\n          event_id?: string\n          event_type?: string\n          match_id?: string\n          metadata?: Json\n          minute?: number | null\n          period?: string\n          player_id?: string | null\n          related_player_id?: string | null\n          sequence_number?: number | null\n          stoppage_minute?: number | null\n          team_id?: string | null\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"match_events_match_id_fkey\"\n            columns: [\"match_id\"]\n            isOneToOne: false\n            referencedRelation: \"matches\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"match_events_player_id_fkey\"\n            columns: [\"player_id\"]\n            isOneToOne: false\n            referencedRelation: \"players\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"match_events_related_player_id_fkey\"\n            columns: [\"related_player_id\"]\n            isOneToOne: false\n            referencedRelation: \"players\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"match_events_team_id_fkey\"\n            columns: [\"team_id\"]\n            isOneToOne: false\n            referencedRelation: \"teams\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      match_players: {\n        Row: {\n          captain: boolean\n          created_at: string\n          match_id: string\n          match_player_id: string\n          minute_in: number | null\n          minute_out: number | null\n          player_id: string\n          shirt_number: number | null\n          squad_role: string\n          starting_position: string | null\n          team_id: string\n          updated_at: string\n        }\n        Insert: {\n          captain?: boolean\n          created_at?: string\n          match_id: string\n          match_player_id?: string\n          minute_in?: number | null\n          minute_out?: number | null\n          player_id: string\n          shirt_number?: number | null\n          squad_role?: string\n          starting_position?: string | null\n          team_id: string\n          updated_at?: string\n        }\n        Update: {\n          captain?: boolean\n          created_at?: string\n          match_id?: string\n          match_player_id?: string\n          minute_in?: number | null\n          minute_out?: number | null\n          player_id?: string\n          shirt_number?: number | null\n          squad_role?: string\n          starting_position?: string | null\n          team_id?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"match_players_match_id_fkey\"\n            columns: [\"match_id\"]\n            isOneToOne: false\n            referencedRelation: \"matches\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"match_players_player_id_fkey\"\n            columns: [\"player_id\"]\n            isOneToOne: false\n            referencedRelation: \"players\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"match_players_team_id_fkey\"\n            columns: [\"team_id\"]\n            isOneToOne: false\n            referencedRelation: \"teams\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      match_results: {\n        Row: {\n          created_at: string\n          decision_type: string\n          match_id: string\n          match_result_id: string\n          official_score_away: number | null\n          official_score_home: number | null\n          penalties_away: number | null\n          penalties_home: number | null\n          score_90_away: number | null\n          score_90_home: number | null\n          score_et_away: number | null\n          score_et_home: number | null\n          updated_at: string\n          winner_team_id: string | null\n        }\n        Insert: {\n          created_at?: string\n          decision_type?: string\n          match_id: string\n          match_result_id?: string\n          official_score_away?: number | null\n          official_score_home?: number | null\n          penalties_away?: number | null\n          penalties_home?: number | null\n          score_90_away?: number | null\n          score_90_home?: number | null\n          score_et_away?: number | null\n          score_et_home?: number | null\n          updated_at?: string\n          winner_team_id?: string | null\n        }\n        Update: {\n          created_at?: string\n          decision_type?: string\n          match_id?: string\n          match_result_id?: string\n          official_score_away?: number | null\n          official_score_home?: number | null\n          penalties_away?: number | null\n          penalties_home?: number | null\n          score_90_away?: number | null\n          score_90_home?: number | null\n          score_et_away?: number | null\n          score_et_home?: number | null\n          updated_at?: string\n          winner_team_id?: string | null\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"match_results_match_id_fkey\"\n            columns: [\"match_id\"]\n            isOneToOne: true\n            referencedRelation: \"matches\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"match_results_winner_team_id_fkey\"\n            columns: [\"winner_team_id\"]\n            isOneToOne: false\n            referencedRelation: \"teams\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      matches: {\n        Row: {\n          away_team_id: string\n          created_at: string\n          entity_id: string\n          home_team_id: string\n          kickoff_at: string | null\n          kickoff_precision: string\n          leg: string | null\n          matchday: number | null\n          neutral_venue: boolean\n          replay_of_match_id: string | null\n          round_label: string | null\n          scheduled_date: string | null\n          season_id: string\n          status: string\n          updated_at: string\n          venue_id: string | null\n        }\n        Insert: {\n          away_team_id: string\n          created_at?: string\n          entity_id: string\n          home_team_id: string\n          kickoff_at?: string | null\n          kickoff_precision?: string\n          leg?: string | null\n          matchday?: number | null\n          neutral_venue?: boolean\n          replay_of_match_id?: string | null\n          round_label?: string | null\n          scheduled_date?: string | null\n          season_id: string\n          status?: string\n          updated_at?: string\n          venue_id?: string | null\n        }\n        Update: {\n          away_team_id?: string\n          created_at?: string\n          entity_id?: string\n          home_team_id?: string\n          kickoff_at?: string | null\n          kickoff_precision?: string\n          leg?: string | null\n          matchday?: number | null\n          neutral_venue?: boolean\n          replay_of_match_id?: string | null\n          round_label?: string | null\n          scheduled_date?: string | null\n          season_id?: string\n          status?: string\n          updated_at?: string\n          venue_id?: string | null\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"matches_away_team_id_fkey\"\n            columns: [\"away_team_id\"]\n            isOneToOne: false\n            referencedRelation: \"teams\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"matches_entity_id_fkey\"\n            columns: [\"entity_id\"]\n            isOneToOne: true\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"matches_home_team_id_fkey\"\n            columns: [\"home_team_id\"]\n            isOneToOne: false\n            referencedRelation: \"teams\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"matches_replay_of_match_id_fkey\"\n            columns: [\"replay_of_match_id\"]\n            isOneToOne: false\n            referencedRelation: \"matches\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"matches_season_id_fkey\"\n            columns: [\"season_id\"]\n            isOneToOne: false\n            referencedRelation: \"seasons\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"matches_venue_id_fkey\"\n            columns: [\"venue_id\"]\n            isOneToOne: false\n            referencedRelation: \"venues\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      player_team_memberships: {\n        Row: {\n          created_at: string\n          end_date: string | null\n          end_date_precision: string\n          membership_id: string\n          membership_type: string\n          player_id: string\n          start_date: string | null\n          start_date_precision: string\n          status: string\n          team_id: string\n          updated_at: string\n        }\n        Insert: {\n          created_at?: string\n          end_date?: string | null\n          end_date_precision?: string\n          membership_id?: string\n          membership_type?: string\n          player_id: string\n          start_date?: string | null\n          start_date_precision?: string\n          status?: string\n          team_id: string\n          updated_at?: string\n        }\n        Update: {\n          created_at?: string\n          end_date?: string | null\n          end_date_precision?: string\n          membership_id?: string\n          membership_type?: string\n          player_id?: string\n          start_date?: string | null\n          start_date_precision?: string\n          status?: string\n          team_id?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"player_team_memberships_player_id_fkey\"\n            columns: [\"player_id\"]\n            isOneToOne: false\n            referencedRelation: \"players\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"player_team_memberships_team_id_fkey\"\n            columns: [\"team_id\"]\n            isOneToOne: false\n            referencedRelation: \"teams\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      players: {\n        Row: {\n          birth_date_precision: string\n          birth_place: string | null\n          created_at: string\n          date_of_birth: string | null\n          display_name: string\n          entity_id: string\n          first_name: string | null\n          gender: string\n          last_name: string | null\n          nationality_code: string | null\n          preferred_foot: string | null\n          primary_position: string | null\n          status: string\n          updated_at: string\n        }\n        Insert: {\n          birth_date_precision?: string\n          birth_place?: string | null\n          created_at?: string\n          date_of_birth?: string | null\n          display_name: string\n          entity_id: string\n          first_name?: string | null\n          gender?: string\n          last_name?: string | null\n          nationality_code?: string | null\n          preferred_foot?: string | null\n          primary_position?: string | null\n          status?: string\n          updated_at?: string\n        }\n        Update: {\n          birth_date_precision?: string\n          birth_place?: string | null\n          created_at?: string\n          date_of_birth?: string | null\n          display_name?: string\n          entity_id?: string\n          first_name?: string | null\n          gender?: string\n          last_name?: string | null\n          nationality_code?: string | null\n          preferred_foot?: string | null\n          primary_position?: string | null\n          status?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"players_entity_id_fkey\"\n            columns: [\"entity_id\"]\n            isOneToOne: true\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      seasons: {\n        Row: {\n          competition_id: string\n          created_at: string\n          end_date: string | null\n          entity_id: string\n          name: string\n          start_date: string | null\n          status: string\n          updated_at: string\n        }\n        Insert: {\n          competition_id: string\n          created_at?: string\n          end_date?: string | null\n          entity_id: string\n          name: string\n          start_date?: string | null\n          status?: string\n          updated_at?: string\n        }\n        Update: {\n          competition_id?: string\n          created_at?: string\n          end_date?: string | null\n          entity_id?: string\n          name?: string\n          start_date?: string | null\n          status?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"seasons_competition_id_fkey\"\n            columns: [\"competition_id\"]\n            isOneToOne: false\n            referencedRelation: \"competitions\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"seasons_entity_id_fkey\"\n            columns: [\"entity_id\"]\n            isOneToOne: true\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      source_observations: {\n        Row: {\n          confidence: number | null\n          created_at: string\n          field_name: string\n          normalized_value: Json | null\n          observation_id: string\n          observed_at: string\n          raw_value: Json\n          source_record_id: string\n          status: string\n          subject_entity_id: string | null\n          subject_entity_type: string\n          subject_key: string | null\n        }\n        Insert: {\n          confidence?: number | null\n          created_at?: string\n          field_name: string\n          normalized_value?: Json | null\n          observation_id?: string\n          observed_at?: string\n          raw_value: Json\n          source_record_id: string\n          status?: string\n          subject_entity_id?: string | null\n          subject_entity_type: string\n          subject_key?: string | null\n        }\n        Update: {\n          confidence?: number | null\n          created_at?: string\n          field_name?: string\n          normalized_value?: Json | null\n          observation_id?: string\n          observed_at?: string\n          raw_value?: Json\n          source_record_id?: string\n          status?: string\n          subject_entity_id?: string | null\n          subject_entity_type?: string\n          subject_key?: string | null\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"source_observations_source_record_id_fkey\"\n            columns: [\"source_record_id\"]\n            isOneToOne: false\n            referencedRelation: \"source_records\"\n            referencedColumns: [\"source_record_id\"]\n          },\n          {\n            foreignKeyName: \"source_observations_subject_entity_id_fkey\"\n            columns: [\"subject_entity_id\"]\n            isOneToOne: false\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      source_records: {\n        Row: {\n          collected_at: string\n          content_hash: string | null\n          created_at: string\n          external_ref: string | null\n          metadata: Json\n          published_at: string | null\n          record_type: string\n          source_id: string\n          source_record_id: string\n          url: string | null\n        }\n        Insert: {\n          collected_at?: string\n          content_hash?: string | null\n          created_at?: string\n          external_ref?: string | null\n          metadata?: Json\n          published_at?: string | null\n          record_type?: string\n          source_id: string\n          source_record_id?: string\n          url?: string | null\n        }\n        Update: {\n          collected_at?: string\n          content_hash?: string | null\n          created_at?: string\n          external_ref?: string | null\n          metadata?: Json\n          published_at?: string | null\n          record_type?: string\n          source_id?: string\n          source_record_id?: string\n          url?: string | null\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"source_records_source_id_fkey\"\n            columns: [\"source_id\"]\n            isOneToOne: false\n            referencedRelation: \"sources\"\n            referencedColumns: [\"source_id\"]\n          },\n        ]\n      }\n      sources: {\n        Row: {\n          base_url: string | null\n          created_at: string\n          name: string\n          publisher: string | null\n          reliability_level: number | null\n          source_id: string\n          source_type: string\n          status: string\n          updated_at: string\n        }\n        Insert: {\n          base_url?: string | null\n          created_at?: string\n          name: string\n          publisher?: string | null\n          reliability_level?: number | null\n          source_id?: string\n          source_type: string\n          status?: string\n          updated_at?: string\n        }\n        Update: {\n          base_url?: string | null\n          created_at?: string\n          name?: string\n          publisher?: string | null\n          reliability_level?: number | null\n          source_id?: string\n          source_type?: string\n          status?: string\n          updated_at?: string\n        }\n        Relationships: []\n      }\n      stat_definitions: {\n        Row: {\n          aggregation_method: string\n          applicable_entity_types: string[]\n          code: string\n          created_at: string\n          data_type: string\n          description: string | null\n          name: string\n          stat_definition_id: string\n          status: string\n          unit: string | null\n          updated_at: string\n        }\n        Insert: {\n          aggregation_method?: string\n          applicable_entity_types?: string[]\n          code: string\n          created_at?: string\n          data_type: string\n          description?: string | null\n          name: string\n          stat_definition_id?: string\n          status?: string\n          unit?: string | null\n          updated_at?: string\n        }\n        Update: {\n          aggregation_method?: string\n          applicable_entity_types?: string[]\n          code?: string\n          created_at?: string\n          data_type?: string\n          description?: string | null\n          name?: string\n          stat_definition_id?: string\n          status?: string\n          unit?: string | null\n          updated_at?: string\n        }\n        Relationships: []\n      }\n      stat_values: {\n        Row: {\n          boolean_value: boolean | null\n          calculation_version: string | null\n          context_match_id: string | null\n          context_season_id: string | null\n          created_at: string\n          entry_method: string\n          numeric_value: number | null\n          source_record_id: string | null\n          stat_definition_id: string\n          stat_value_id: string\n          subject_entity_id: string\n          text_value: string | null\n          updated_at: string\n          value_kind: string\n        }\n        Insert: {\n          boolean_value?: boolean | null\n          calculation_version?: string | null\n          context_match_id?: string | null\n          context_season_id?: string | null\n          created_at?: string\n          entry_method?: string\n          numeric_value?: number | null\n          source_record_id?: string | null\n          stat_definition_id: string\n          stat_value_id?: string\n          subject_entity_id: string\n          text_value?: string | null\n          updated_at?: string\n          value_kind: string\n        }\n        Update: {\n          boolean_value?: boolean | null\n          calculation_version?: string | null\n          context_match_id?: string | null\n          context_season_id?: string | null\n          created_at?: string\n          entry_method?: string\n          numeric_value?: number | null\n          source_record_id?: string | null\n          stat_definition_id?: string\n          stat_value_id?: string\n          subject_entity_id?: string\n          text_value?: string | null\n          updated_at?: string\n          value_kind?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"stat_values_context_match_id_fkey\"\n            columns: [\"context_match_id\"]\n            isOneToOne: false\n            referencedRelation: \"matches\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"stat_values_context_season_id_fkey\"\n            columns: [\"context_season_id\"]\n            isOneToOne: false\n            referencedRelation: \"seasons\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"stat_values_source_record_id_fkey\"\n            columns: [\"source_record_id\"]\n            isOneToOne: false\n            referencedRelation: \"source_records\"\n            referencedColumns: [\"source_record_id\"]\n          },\n          {\n            foreignKeyName: \"stat_values_stat_definition_id_fkey\"\n            columns: [\"stat_definition_id\"]\n            isOneToOne: false\n            referencedRelation: \"stat_definitions\"\n            referencedColumns: [\"stat_definition_id\"]\n          },\n          {\n            foreignKeyName: \"stat_values_subject_entity_id_fkey\"\n            columns: [\"subject_entity_id\"]\n            isOneToOne: false\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      team_season_entries: {\n        Row: {\n          created_at: string\n          entry_id: string\n          entry_status: string\n          group_label: string | null\n          season_id: string\n          team_id: string\n          updated_at: string\n        }\n        Insert: {\n          created_at?: string\n          entry_id?: string\n          entry_status?: string\n          group_label?: string | null\n          season_id: string\n          team_id: string\n          updated_at?: string\n        }\n        Update: {\n          created_at?: string\n          entry_id?: string\n          entry_status?: string\n          group_label?: string | null\n          season_id?: string\n          team_id?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"team_season_entries_season_id_fkey\"\n            columns: [\"season_id\"]\n            isOneToOne: false\n            referencedRelation: \"seasons\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"team_season_entries_team_id_fkey\"\n            columns: [\"team_id\"]\n            isOneToOne: false\n            referencedRelation: \"teams\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      teams: {\n        Row: {\n          age_category: string\n          club_id: string | null\n          country_code: string | null\n          created_at: string\n          entity_id: string\n          gender: string\n          name: string\n          status: string\n          team_scope: string\n          updated_at: string\n        }\n        Insert: {\n          age_category?: string\n          club_id?: string | null\n          country_code?: string | null\n          created_at?: string\n          entity_id: string\n          gender?: string\n          name: string\n          status?: string\n          team_scope: string\n          updated_at?: string\n        }\n        Update: {\n          age_category?: string\n          club_id?: string | null\n          country_code?: string | null\n          created_at?: string\n          entity_id?: string\n          gender?: string\n          name?: string\n          status?: string\n          team_scope?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"teams_club_id_fkey\"\n            columns: [\"club_id\"]\n            isOneToOne: false\n            referencedRelation: \"clubs\"\n            referencedColumns: [\"entity_id\"]\n          },\n          {\n            foreignKeyName: \"teams_entity_id_fkey\"\n            columns: [\"entity_id\"]\n            isOneToOne: true\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      validation_issues: {\n        Row: {\n          created_at: string\n          details: Json\n          detected_at: string\n          entity_id: string | null\n          message: string\n          resolved_at: string | null\n          rule_code: string\n          severity: string\n          status: string\n          subject_locator: Json\n          validation_issue_id: string\n        }\n        Insert: {\n          created_at?: string\n          details?: Json\n          detected_at?: string\n          entity_id?: string | null\n          message: string\n          resolved_at?: string | null\n          rule_code: string\n          severity: string\n          status?: string\n          subject_locator?: Json\n          validation_issue_id?: string\n        }\n        Update: {\n          created_at?: string\n          details?: Json\n          detected_at?: string\n          entity_id?: string | null\n          message?: string\n          resolved_at?: string | null\n          rule_code?: string\n          severity?: string\n          status?: string\n          subject_locator?: Json\n          validation_issue_id?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"validation_issues_entity_id_fkey\"\n            columns: [\"entity_id\"]\n            isOneToOne: false\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n      venues: {\n        Row: {\n          capacity: number | null\n          city: string | null\n          country_code: string | null\n          created_at: string\n          entity_id: string\n          latitude: number | null\n          longitude: number | null\n          name: string\n          region: string | null\n          status: string\n          updated_at: string\n        }\n        Insert: {\n          capacity?: number | null\n          city?: string | null\n          country_code?: string | null\n          created_at?: string\n          entity_id: string\n          latitude?: number | null\n          longitude?: number | null\n          name: string\n          region?: string | null\n          status?: string\n          updated_at?: string\n        }\n        Update: {\n          capacity?: number | null\n          city?: string | null\n          country_code?: string | null\n          created_at?: string\n          entity_id?: string\n          latitude?: number | null\n          longitude?: number | null\n          name?: string\n          region?: string | null\n          status?: string\n          updated_at?: string\n        }\n        Relationships: [\n          {\n            foreignKeyName: \"venues_entity_id_fkey\"\n            columns: [\"entity_id\"]\n            isOneToOne: true\n            referencedRelation: \"entities\"\n            referencedColumns: [\"entity_id\"]\n          },\n        ]\n      }\n    }\n    Views: {\n      [_ in never]: never\n    }\n    Functions: {\n      [_ in never]: never\n    }\n    Enums: {\n      [_ in never]: never\n    }\n    CompositeTypes: {\n      [_ in never]: never\n    }\n  }\n}\n\ntype DatabaseWithoutInternals = Omit<Database, \"__InternalSupabase\">\n\ntype DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, \"public\">]\n\nexport type Tables<\n  DefaultSchemaTableNameOrOptions extends\n    | keyof (DefaultSchema[\"Tables\"] & DefaultSchema[\"Views\"])\n    | { schema: keyof DatabaseWithoutInternals },\n  TableName extends (DefaultSchemaTableNameOrOptions extends {\n    schema: keyof DatabaseWithoutInternals\n  }\n    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions[\"schema\"]][\"Tables\"] &\n        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions[\"schema\"]][\"Views\"])\n    : never) = never,\n> = DefaultSchemaTableNameOrOptions extends {\n  schema: keyof DatabaseWithoutInternals\n}\n  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions[\"schema\"]][\"Tables\"] &\n      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions[\"schema\"]][\"Views\"])[TableName] extends {\n      Row: infer R\n    }\n    ? R\n    : never\n  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema[\"Tables\"] &\n        DefaultSchema[\"Views\"])\n    ? (DefaultSchema[\"Tables\"] &\n        DefaultSchema[\"Views\"])[DefaultSchemaTableNameOrOptions] extends {\n        Row: infer R\n      }\n      ? R\n      : never\n    : never\n\nexport type TablesInsert<\n  DefaultSchemaTableNameOrOptions extends\n    | keyof DefaultSchema[\"Tables\"]\n    | { schema: keyof DatabaseWithoutInternals },\n  TableName extends (DefaultSchemaTableNameOrOptions extends {\n    schema: keyof DatabaseWithoutInternals\n  }\n    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions[\"schema\"]][\"Tables\"]\n    : never) = never,\n> = DefaultSchemaTableNameOrOptions extends {\n  schema: keyof DatabaseWithoutInternals\n}\n  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions[\"schema\"]][\"Tables\"][TableName] extends {\n      Insert: infer I\n    }\n    ? I\n    : never\n  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema[\"Tables\"]\n    ? DefaultSchema[\"Tables\"][DefaultSchemaTableNameOrOptions] extends {\n        Insert: infer I\n      }\n      ? I\n      : never\n    : never\n\nexport type TablesUpdate<\n  DefaultSchemaTableNameOrOptions extends\n    | keyof DefaultSchema[\"Tables\"]\n    | { schema: keyof DatabaseWithoutInternals },\n  TableName extends (DefaultSchemaTableNameOrOptions extends {\n    schema: keyof DatabaseWithoutInternals\n  }\n    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions[\"schema\"]][\"Tables\"]\n    : never) = never,\n> = DefaultSchemaTableNameOrOptions extends {\n  schema: keyof DatabaseWithoutInternals\n}\n  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions[\"schema\"]][\"Tables\"][TableName] extends {\n      Update: infer U\n    }\n    ? U\n    : never\n  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema[\"Tables\"]\n    ? DefaultSchema[\"Tables\"][DefaultSchemaTableNameOrOptions] extends {\n        Update: infer U\n      }\n      ? U\n      : never\n    : never\n\nexport type Enums<\n  DefaultSchemaEnumNameOrOptions extends\n    | keyof DefaultSchema[\"Enums\"]\n    | { schema: keyof DatabaseWithoutInternals },\n  EnumName extends (DefaultSchemaEnumNameOrOptions extends {\n    schema: keyof DatabaseWithoutInternals\n  }\n    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions[\"schema\"]][\"Enums\"]\n    : never) = never,\n> = DefaultSchemaEnumNameOrOptions extends {\n  schema: keyof DatabaseWithoutInternals\n}\n  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions[\"schema\"]][\"Enums\"][EnumName]\n  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema[\"Enums\"]\n    ? DefaultSchema[\"Enums\"][DefaultSchemaEnumNameOrOptions]\n    : never\n\nexport type CompositeTypes<\n  PublicCompositeTypeNameOrOptions extends\n    | keyof DefaultSchema[\"CompositeTypes\"]\n    | { schema: keyof DatabaseWithoutInternals },\n  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {\n    schema: keyof DatabaseWithoutInternals\n  }\n    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions[\"schema\"]][\"CompositeTypes\"]\n    : never) = never,\n> = PublicCompositeTypeNameOrOptions extends {\n  schema: keyof DatabaseWithoutInternals\n}\n  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions[\"schema\"]][\"CompositeTypes\"][CompositeTypeName]\n  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema[\"CompositeTypes\"]\n    ? DefaultSchema[\"CompositeTypes\"][PublicCompositeTypeNameOrOptions]\n    : never\n\nexport const Constants = {\n  public: {\n    Enums: {},\n  },\n} as const\n"}
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "14.5"
+  }
+  public: {
+    Tables: {
+      clubs: {
+        Row: {
+          city: string | null
+          country_code: string | null
+          created_at: string
+          entity_id: string
+          founded_year: number | null
+          official_name: string
+          short_name: string | null
+          slug: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          city?: string | null
+          country_code?: string | null
+          created_at?: string
+          entity_id: string
+          founded_year?: number | null
+          official_name: string
+          short_name?: string | null
+          slug?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          city?: string | null
+          country_code?: string | null
+          created_at?: string
+          entity_id?: string
+          founded_year?: number | null
+          official_name?: string
+          short_name?: string | null
+          slug?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clubs_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: true
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      competitions: {
+        Row: {
+          age_category: string
+          competition_type: string
+          country_code: string | null
+          created_at: string
+          entity_id: string
+          gender: string
+          level: number | null
+          name: string
+          organizer_name: string | null
+          short_name: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          age_category?: string
+          competition_type: string
+          country_code?: string | null
+          created_at?: string
+          entity_id: string
+          gender?: string
+          level?: number | null
+          name: string
+          organizer_name?: string | null
+          short_name?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          age_category?: string
+          competition_type?: string
+          country_code?: string | null
+          created_at?: string
+          entity_id?: string
+          gender?: string
+          level?: number | null
+          name?: string
+          organizer_name?: string | null
+          short_name?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitions_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: true
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      duplicate_candidates: {
+        Row: {
+          created_at: string
+          duplicate_candidate_id: string
+          entity_a_id: string
+          entity_b_id: string
+          reason: Json
+          reviewed_at: string | null
+          similarity_score: number | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          duplicate_candidate_id?: string
+          entity_a_id: string
+          entity_b_id: string
+          reason?: Json
+          reviewed_at?: string | null
+          similarity_score?: number | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          duplicate_candidate_id?: string
+          entity_a_id?: string
+          entity_b_id?: string
+          reason?: Json
+          reviewed_at?: string | null
+          similarity_score?: number | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "duplicate_candidates_entity_a_id_fkey"
+            columns: ["entity_a_id"]
+            isOneToOne: false
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "duplicate_candidates_entity_b_id_fkey"
+            columns: ["entity_b_id"]
+            isOneToOne: false
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      entities: {
+        Row: {
+          created_at: string
+          entity_id: string
+          entity_type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          entity_id?: string
+          entity_type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          entity_id?: string
+          entity_type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      entity_aliases: {
+        Row: {
+          alias: string
+          alias_id: string
+          alias_type: string
+          created_at: string
+          entity_id: string
+          language_code: string | null
+          normalized_alias: string
+          valid_from: string | null
+          valid_to: string | null
+        }
+        Insert: {
+          alias: string
+          alias_id?: string
+          alias_type?: string
+          created_at?: string
+          entity_id: string
+          language_code?: string | null
+          normalized_alias: string
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Update: {
+          alias?: string
+          alias_id?: string
+          alias_type?: string
+          created_at?: string
+          entity_id?: string
+          language_code?: string | null
+          normalized_alias?: string
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entity_aliases_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: false
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      entity_merges: {
+        Row: {
+          merge_id: string
+          merged_at: string
+          merged_entity_id: string
+          reason: string | null
+          survivor_entity_id: string
+        }
+        Insert: {
+          merge_id?: string
+          merged_at?: string
+          merged_entity_id: string
+          reason?: string | null
+          survivor_entity_id: string
+        }
+        Update: {
+          merge_id?: string
+          merged_at?: string
+          merged_entity_id?: string
+          reason?: string | null
+          survivor_entity_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entity_merges_merged_entity_id_fkey"
+            columns: ["merged_entity_id"]
+            isOneToOne: true
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "entity_merges_survivor_entity_id_fkey"
+            columns: ["survivor_entity_id"]
+            isOneToOne: false
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      external_ids: {
+        Row: {
+          created_at: string
+          entity_id: string
+          entity_type: string
+          external_id_id: string
+          external_url: string | null
+          external_value: string
+          provider: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          entity_id: string
+          entity_type: string
+          external_id_id?: string
+          external_url?: string | null
+          external_value: string
+          provider: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          entity_id?: string
+          entity_type?: string
+          external_id_id?: string
+          external_url?: string | null
+          external_value?: string
+          provider?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "external_ids_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: false
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      match_events: {
+        Row: {
+          created_at: string
+          event_id: string
+          event_type: string
+          match_id: string
+          metadata: Json
+          minute: number | null
+          period: string
+          player_id: string | null
+          related_player_id: string | null
+          sequence_number: number | null
+          stoppage_minute: number | null
+          team_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          event_id?: string
+          event_type: string
+          match_id: string
+          metadata?: Json
+          minute?: number | null
+          period?: string
+          player_id?: string | null
+          related_player_id?: string | null
+          sequence_number?: number | null
+          stoppage_minute?: number | null
+          team_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          event_id?: string
+          event_type?: string
+          match_id?: string
+          metadata?: Json
+          minute?: number | null
+          period?: string
+          player_id?: string | null
+          related_player_id?: string | null
+          sequence_number?: number | null
+          stoppage_minute?: number | null
+          team_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "match_events_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "matches"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "match_events_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "match_events_related_player_id_fkey"
+            columns: ["related_player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "match_events_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      match_players: {
+        Row: {
+          captain: boolean
+          created_at: string
+          match_id: string
+          match_player_id: string
+          minute_in: number | null
+          minute_out: number | null
+          player_id: string
+          shirt_number: number | null
+          squad_role: string
+          starting_position: string | null
+          team_id: string
+          updated_at: string
+        }
+        Insert: {
+          captain?: boolean
+          created_at?: string
+          match_id: string
+          match_player_id?: string
+          minute_in?: number | null
+          minute_out?: number | null
+          player_id: string
+          shirt_number?: number | null
+          squad_role?: string
+          starting_position?: string | null
+          team_id: string
+          updated_at?: string
+        }
+        Update: {
+          captain?: boolean
+          created_at?: string
+          match_id?: string
+          match_player_id?: string
+          minute_in?: number | null
+          minute_out?: number | null
+          player_id?: string
+          shirt_number?: number | null
+          squad_role?: string
+          starting_position?: string | null
+          team_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "match_players_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "matches"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "match_players_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "match_players_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      match_results: {
+        Row: {
+          created_at: string
+          decision_type: string
+          match_id: string
+          match_result_id: string
+          official_score_away: number | null
+          official_score_home: number | null
+          penalties_away: number | null
+          penalties_home: number | null
+          score_90_away: number | null
+          score_90_home: number | null
+          score_et_away: number | null
+          score_et_home: number | null
+          updated_at: string
+          winner_team_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          decision_type?: string
+          match_id: string
+          match_result_id?: string
+          official_score_away?: number | null
+          official_score_home?: number | null
+          penalties_away?: number | null
+          penalties_home?: number | null
+          score_90_away?: number | null
+          score_90_home?: number | null
+          score_et_away?: number | null
+          score_et_home?: number | null
+          updated_at?: string
+          winner_team_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          decision_type?: string
+          match_id?: string
+          match_result_id?: string
+          official_score_away?: number | null
+          official_score_home?: number | null
+          penalties_away?: number | null
+          penalties_home?: number | null
+          score_90_away?: number | null
+          score_90_home?: number | null
+          score_et_away?: number | null
+          score_et_home?: number | null
+          updated_at?: string
+          winner_team_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "match_results_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: true
+            referencedRelation: "matches"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "match_results_winner_team_id_fkey"
+            columns: ["winner_team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      matches: {
+        Row: {
+          away_team_id: string
+          created_at: string
+          entity_id: string
+          home_team_id: string
+          kickoff_at: string | null
+          kickoff_precision: string
+          leg: string | null
+          matchday: number | null
+          neutral_venue: boolean
+          replay_of_match_id: string | null
+          round_label: string | null
+          scheduled_date: string | null
+          season_id: string
+          status: string
+          updated_at: string
+          venue_id: string | null
+        }
+        Insert: {
+          away_team_id: string
+          created_at?: string
+          entity_id: string
+          home_team_id: string
+          kickoff_at?: string | null
+          kickoff_precision?: string
+          leg?: string | null
+          matchday?: number | null
+          neutral_venue?: boolean
+          replay_of_match_id?: string | null
+          round_label?: string | null
+          scheduled_date?: string | null
+          season_id: string
+          status?: string
+          updated_at?: string
+          venue_id?: string | null
+        }
+        Update: {
+          away_team_id?: string
+          created_at?: string
+          entity_id?: string
+          home_team_id?: string
+          kickoff_at?: string | null
+          kickoff_precision?: string
+          leg?: string | null
+          matchday?: number | null
+          neutral_venue?: boolean
+          replay_of_match_id?: string | null
+          round_label?: string | null
+          scheduled_date?: string | null
+          season_id?: string
+          status?: string
+          updated_at?: string
+          venue_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "matches_away_team_id_fkey"
+            columns: ["away_team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "matches_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: true
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "matches_home_team_id_fkey"
+            columns: ["home_team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "matches_replay_of_match_id_fkey"
+            columns: ["replay_of_match_id"]
+            isOneToOne: false
+            referencedRelation: "matches"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "matches_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "seasons"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "matches_venue_id_fkey"
+            columns: ["venue_id"]
+            isOneToOne: false
+            referencedRelation: "venues"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      player_team_memberships: {
+        Row: {
+          created_at: string
+          end_date: string | null
+          end_date_precision: string
+          membership_id: string
+          membership_type: string
+          player_id: string
+          start_date: string | null
+          start_date_precision: string
+          status: string
+          team_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          end_date?: string | null
+          end_date_precision?: string
+          membership_id?: string
+          membership_type?: string
+          player_id: string
+          start_date?: string | null
+          start_date_precision?: string
+          status?: string
+          team_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          end_date?: string | null
+          end_date_precision?: string
+          membership_id?: string
+          membership_type?: string
+          player_id?: string
+          start_date?: string | null
+          start_date_precision?: string
+          status?: string
+          team_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "player_team_memberships_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "player_team_memberships_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      players: {
+        Row: {
+          birth_date_precision: string
+          birth_place: string | null
+          created_at: string
+          date_of_birth: string | null
+          display_name: string
+          entity_id: string
+          first_name: string | null
+          gender: string
+          last_name: string | null
+          nationality_code: string | null
+          preferred_foot: string | null
+          primary_position: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          birth_date_precision?: string
+          birth_place?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          display_name: string
+          entity_id: string
+          first_name?: string | null
+          gender?: string
+          last_name?: string | null
+          nationality_code?: string | null
+          preferred_foot?: string | null
+          primary_position?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          birth_date_precision?: string
+          birth_place?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          display_name?: string
+          entity_id?: string
+          first_name?: string | null
+          gender?: string
+          last_name?: string | null
+          nationality_code?: string | null
+          preferred_foot?: string | null
+          primary_position?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "players_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: true
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      seasons: {
+        Row: {
+          competition_id: string
+          created_at: string
+          end_date: string | null
+          entity_id: string
+          name: string
+          start_date: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          competition_id: string
+          created_at?: string
+          end_date?: string | null
+          entity_id: string
+          name: string
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          competition_id?: string
+          created_at?: string
+          end_date?: string | null
+          entity_id?: string
+          name?: string
+          start_date?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seasons_competition_id_fkey"
+            columns: ["competition_id"]
+            isOneToOne: false
+            referencedRelation: "competitions"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "seasons_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: true
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      source_observations: {
+        Row: {
+          confidence: number | null
+          created_at: string
+          field_name: string
+          normalized_value: Json | null
+          observation_id: string
+          observed_at: string
+          raw_value: Json
+          source_record_id: string
+          status: string
+          subject_entity_id: string | null
+          subject_entity_type: string
+          subject_key: string | null
+        }
+        Insert: {
+          confidence?: number | null
+          created_at?: string
+          field_name: string
+          normalized_value?: Json | null
+          observation_id?: string
+          observed_at?: string
+          raw_value: Json
+          source_record_id: string
+          status?: string
+          subject_entity_id?: string | null
+          subject_entity_type: string
+          subject_key?: string | null
+        }
+        Update: {
+          confidence?: number | null
+          created_at?: string
+          field_name?: string
+          normalized_value?: Json | null
+          observation_id?: string
+          observed_at?: string
+          raw_value?: Json
+          source_record_id?: string
+          status?: string
+          subject_entity_id?: string | null
+          subject_entity_type?: string
+          subject_key?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "source_observations_source_record_id_fkey"
+            columns: ["source_record_id"]
+            isOneToOne: false
+            referencedRelation: "source_records"
+            referencedColumns: ["source_record_id"]
+          },
+          {
+            foreignKeyName: "source_observations_subject_entity_id_fkey"
+            columns: ["subject_entity_id"]
+            isOneToOne: false
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      source_records: {
+        Row: {
+          collected_at: string
+          content_hash: string | null
+          created_at: string
+          external_ref: string | null
+          metadata: Json
+          published_at: string | null
+          record_type: string
+          source_id: string
+          source_record_id: string
+          url: string | null
+        }
+        Insert: {
+          collected_at?: string
+          content_hash?: string | null
+          created_at?: string
+          external_ref?: string | null
+          metadata?: Json
+          published_at?: string | null
+          record_type?: string
+          source_id: string
+          source_record_id?: string
+          url?: string | null
+        }
+        Update: {
+          collected_at?: string
+          content_hash?: string | null
+          created_at?: string
+          external_ref?: string | null
+          metadata?: Json
+          published_at?: string | null
+          record_type?: string
+          source_id?: string
+          source_record_id?: string
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "source_records_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "sources"
+            referencedColumns: ["source_id"]
+          },
+        ]
+      }
+      sources: {
+        Row: {
+          base_url: string | null
+          created_at: string
+          name: string
+          publisher: string | null
+          reliability_level: number | null
+          source_id: string
+          source_type: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          base_url?: string | null
+          created_at?: string
+          name: string
+          publisher?: string | null
+          reliability_level?: number | null
+          source_id?: string
+          source_type: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          base_url?: string | null
+          created_at?: string
+          name?: string
+          publisher?: string | null
+          reliability_level?: number | null
+          source_id?: string
+          source_type?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      stat_definitions: {
+        Row: {
+          aggregation_method: string
+          applicable_entity_types: string[]
+          code: string
+          created_at: string
+          data_type: string
+          description: string | null
+          name: string
+          stat_definition_id: string
+          status: string
+          unit: string | null
+          updated_at: string
+        }
+        Insert: {
+          aggregation_method?: string
+          applicable_entity_types?: string[]
+          code: string
+          created_at?: string
+          data_type: string
+          description?: string | null
+          name: string
+          stat_definition_id?: string
+          status?: string
+          unit?: string | null
+          updated_at?: string
+        }
+        Update: {
+          aggregation_method?: string
+          applicable_entity_types?: string[]
+          code?: string
+          created_at?: string
+          data_type?: string
+          description?: string | null
+          name?: string
+          stat_definition_id?: string
+          status?: string
+          unit?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      stat_values: {
+        Row: {
+          boolean_value: boolean | null
+          calculation_version: string | null
+          context_match_id: string | null
+          context_season_id: string | null
+          created_at: string
+          entry_method: string
+          numeric_value: number | null
+          source_record_id: string | null
+          stat_definition_id: string
+          stat_value_id: string
+          subject_entity_id: string
+          text_value: string | null
+          updated_at: string
+          value_kind: string
+        }
+        Insert: {
+          boolean_value?: boolean | null
+          calculation_version?: string | null
+          context_match_id?: string | null
+          context_season_id?: string | null
+          created_at?: string
+          entry_method?: string
+          numeric_value?: number | null
+          source_record_id?: string | null
+          stat_definition_id: string
+          stat_value_id?: string
+          subject_entity_id: string
+          text_value?: string | null
+          updated_at?: string
+          value_kind: string
+        }
+        Update: {
+          boolean_value?: boolean | null
+          calculation_version?: string | null
+          context_match_id?: string | null
+          context_season_id?: string | null
+          created_at?: string
+          entry_method?: string
+          numeric_value?: number | null
+          source_record_id?: string | null
+          stat_definition_id?: string
+          stat_value_id?: string
+          subject_entity_id?: string
+          text_value?: string | null
+          updated_at?: string
+          value_kind?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stat_values_context_match_id_fkey"
+            columns: ["context_match_id"]
+            isOneToOne: false
+            referencedRelation: "matches"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "stat_values_context_season_id_fkey"
+            columns: ["context_season_id"]
+            isOneToOne: false
+            referencedRelation: "seasons"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "stat_values_source_record_id_fkey"
+            columns: ["source_record_id"]
+            isOneToOne: false
+            referencedRelation: "source_records"
+            referencedColumns: ["source_record_id"]
+          },
+          {
+            foreignKeyName: "stat_values_stat_definition_id_fkey"
+            columns: ["stat_definition_id"]
+            isOneToOne: false
+            referencedRelation: "stat_definitions"
+            referencedColumns: ["stat_definition_id"]
+          },
+          {
+            foreignKeyName: "stat_values_subject_entity_id_fkey"
+            columns: ["subject_entity_id"]
+            isOneToOne: false
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      team_season_entries: {
+        Row: {
+          created_at: string
+          entry_id: string
+          entry_status: string
+          group_label: string | null
+          season_id: string
+          team_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          entry_id?: string
+          entry_status?: string
+          group_label?: string | null
+          season_id: string
+          team_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          entry_id?: string
+          entry_status?: string
+          group_label?: string | null
+          season_id?: string
+          team_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_season_entries_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "seasons"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "team_season_entries_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      teams: {
+        Row: {
+          age_category: string
+          club_id: string | null
+          country_code: string | null
+          created_at: string
+          entity_id: string
+          gender: string
+          name: string
+          status: string
+          team_scope: string
+          updated_at: string
+        }
+        Insert: {
+          age_category?: string
+          club_id?: string | null
+          country_code?: string | null
+          created_at?: string
+          entity_id: string
+          gender?: string
+          name: string
+          status?: string
+          team_scope: string
+          updated_at?: string
+        }
+        Update: {
+          age_category?: string
+          club_id?: string | null
+          country_code?: string | null
+          created_at?: string
+          entity_id?: string
+          gender?: string
+          name?: string
+          status?: string
+          team_scope?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "teams_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: false
+            referencedRelation: "clubs"
+            referencedColumns: ["entity_id"]
+          },
+          {
+            foreignKeyName: "teams_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: true
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      validation_issues: {
+        Row: {
+          created_at: string
+          details: Json
+          detected_at: string
+          entity_id: string | null
+          message: string
+          resolved_at: string | null
+          rule_code: string
+          severity: string
+          status: string
+          subject_locator: Json
+          validation_issue_id: string
+        }
+        Insert: {
+          created_at?: string
+          details?: Json
+          detected_at?: string
+          entity_id?: string | null
+          message: string
+          resolved_at?: string | null
+          rule_code: string
+          severity: string
+          status?: string
+          subject_locator?: Json
+          validation_issue_id?: string
+        }
+        Update: {
+          created_at?: string
+          details?: Json
+          detected_at?: string
+          entity_id?: string | null
+          message?: string
+          resolved_at?: string | null
+          rule_code?: string
+          severity?: string
+          status?: string
+          subject_locator?: Json
+          validation_issue_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "validation_issues_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: false
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+      venues: {
+        Row: {
+          capacity: number | null
+          city: string | null
+          country_code: string | null
+          created_at: string
+          entity_id: string
+          latitude: number | null
+          longitude: number | null
+          name: string
+          region: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          capacity?: number | null
+          city?: string | null
+          country_code?: string | null
+          created_at?: string
+          entity_id: string
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          region?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          capacity?: number | null
+          city?: string | null
+          country_code?: string | null
+          created_at?: string
+          entity_id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          region?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "venues_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: true
+            referencedRelation: "entities"
+            referencedColumns: ["entity_id"]
+          },
+        ]
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
+}
+
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+
+export type Tables<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    : never) = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
+    : never
+
+export type TablesInsert<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never) = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
+    : never
+
+export type TablesUpdate<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never) = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
+    : never
+
+export type Enums<
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    : never) = never,
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never) = never,
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never
+
+export const Constants = {
+  public: {
+    Enums: {},
+  },
+} as const
