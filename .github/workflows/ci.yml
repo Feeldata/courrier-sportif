@@ -5,47 +5,19 @@ on:
   push:
     branches: [main]
 
-permissions:
-  contents: write
-
 jobs:
   quality:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: codex/app/mvp-v0.1
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install dependencies
-        shell: bash
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install --ignore-scripts
-          fi
-      - name: Normalize and commit verification artifacts
-        shell: bash
-        run: |
-          npm run format
-          git add -A
-          if ! git diff --cached --quiet; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "chore: normalize verification artifacts"
-            git push origin HEAD:codex/app/mvp-v0.1
-          fi
-      - run: npm run verify:foundation
-      - run: npm run verify:app
-      - run: npm run check:boundaries
-      - run: npm run lint
-      - run: npm run format:check
-      - run: npm run typecheck
-      - run: npm run test
-      - run: npm run build
+          cache: npm
+      - run: npm ci
+      - name: Run full quality gate
+        run: npm run check
         env:
           NEXT_PUBLIC_APP_ENV: local
           NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
