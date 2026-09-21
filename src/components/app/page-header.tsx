@@ -24,7 +24,13 @@ export function PageHeader({
   )
 }
 
-export function SectionHeader({ title, link }: { title: string; link?: { href: string; label: string } }) {
+export function SectionHeader({
+  title,
+  link,
+}: {
+  title: string
+  link?: { href: string; label: string }
+}) {
   return (
     <div className="section-header">
       <h2>{title}</h2>

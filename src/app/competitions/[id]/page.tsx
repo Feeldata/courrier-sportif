@@ -1,18 +1,33 @@
 import type { Metadata } from 'next'
 
-import { CompetitionHeader, EmptyState, MatchCard, NoDataState, SectionHeader, StandingsTable } from '@/components/app'
+import {
+  CompetitionHeader,
+  EmptyState,
+  MatchCard,
+  NoDataState,
+  SectionHeader,
+  StandingsTable,
+} from '@/components/app'
 import { EntityMissingState } from '@/components/app/states'
 import { getCompetitionDetail } from '@/modules/app/data/repository'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
   const { id } = await params
   const detail = await getCompetitionDetail(id)
   return { title: detail?.competition.name ?? 'Compétition' }
 }
 
-export default async function CompetitionDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function CompetitionDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
   const { id } = await params
   const detail = await getCompetitionDetail(id)
   if (!detail) return <EntityMissingState kind="Compétition" />
@@ -46,7 +61,9 @@ export default async function CompetitionDetailPage({ params }: { params: Promis
               <SectionHeader title="Matchs" />
               {matches.length > 0 ? (
                 <div className="match-grid">
-                  {matches.map((match) => <MatchCard key={match.id} match={match} />)}
+                  {matches.map((match) => (
+                    <MatchCard key={match.id} match={match} />
+                  ))}
                 </div>
               ) : (
                 <NoDataState>Aucun match validé n’est associé à cette saison.</NoDataState>
@@ -56,7 +73,11 @@ export default async function CompetitionDetailPage({ params }: { params: Promis
             <div className="page-section compact">
               <SectionHeader title="Équipes engagées" />
               {teams.length > 0 ? (
-                <ul className="simple-list">{teams.map((team) => <li key={team.id}>{team.name}</li>)}</ul>
+                <ul className="simple-list">
+                  {teams.map((team) => (
+                    <li key={team.id}>{team.name}</li>
+                  ))}
+                </ul>
               ) : (
                 <NoDataState>Aucune équipe engagée n’est encore renseignée.</NoDataState>
               )}

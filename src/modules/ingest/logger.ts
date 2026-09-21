@@ -6,7 +6,12 @@ export interface IngestLogger {
 
 export class JsonConsoleIngestLogger implements IngestLogger {
   log(event: PipelineEvent): void {
-    const method = event.level === 'error' ? console.error : event.level === 'warning' ? console.warn : console.info
+    const method =
+      event.level === 'error'
+        ? console.error
+        : event.level === 'warning'
+          ? console.warn
+          : console.info
     method(JSON.stringify({ component: 'cs-ingest', ...event }))
   }
 }

@@ -1,11 +1,5 @@
 export type IngestEntityType =
-  | 'player'
-  | 'club'
-  | 'team'
-  | 'competition'
-  | 'season'
-  | 'venue'
-  | 'match'
+  'player' | 'club' | 'team' | 'competition' | 'season' | 'venue' | 'match'
 
 export type ObservationStatus = 'raw' | 'candidate' | 'accepted' | 'rejected'
 export type ReviewSeverity = 'info' | 'warning' | 'error' | 'blocking'

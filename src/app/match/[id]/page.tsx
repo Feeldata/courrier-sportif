@@ -8,7 +8,11 @@ import { getMatchDetail } from '@/modules/app/data/repository'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
   const { id } = await params
   const detail = await getMatchDetail(id)
   return {
@@ -29,22 +33,42 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
     <div className="page-stack">
       <section className="match-hero">
         <div className="match-hero-meta">
-          <span className={`status-pill status-${match.status}`}>{matchStatusLabel(match.status)}</span>
+          <span className={`status-pill status-${match.status}`}>
+            {matchStatusLabel(match.status)}
+          </span>
           {date ? <span>{date}</span> : <span>Date à confirmer</span>}
         </div>
         {match.competitionName ? <p className="eyebrow">{match.competitionName}</p> : null}
         <div className="scoreboard">
           <div>
-            {match.homeTeam.clubId ? <Link href={`/club/${match.homeTeam.clubId}`}>{match.homeTeam.name}</Link> : <strong>{match.homeTeam.name}</strong>}
+            {match.homeTeam.clubId ? (
+              <Link href={`/club/${match.homeTeam.clubId}`}>{match.homeTeam.name}</Link>
+            ) : (
+              <strong>{match.homeTeam.name}</strong>
+            )}
           </div>
-          <div className="scoreboard-score">{hasScore ? `${match.scoreHome} – ${match.scoreAway}` : '—'}</div>
+          <div className="scoreboard-score">
+            {hasScore ? `${match.scoreHome} – ${match.scoreAway}` : '—'}
+          </div>
           <div>
-            {match.awayTeam.clubId ? <Link href={`/club/${match.awayTeam.clubId}`}>{match.awayTeam.name}</Link> : <strong>{match.awayTeam.name}</strong>}
+            {match.awayTeam.clubId ? (
+              <Link href={`/club/${match.awayTeam.clubId}`}>{match.awayTeam.name}</Link>
+            ) : (
+              <strong>{match.awayTeam.name}</strong>
+            )}
           </div>
         </div>
         <div className="match-detail-meta">
-          {detail.venueName ? <span>{[detail.venueName, detail.venueCity].filter(Boolean).join(', ')}</span> : <span>Stade non renseigné</span>}
-          {match.roundLabel ? <span>{match.roundLabel}</span> : match.matchday ? <span>Journée {match.matchday}</span> : null}
+          {detail.venueName ? (
+            <span>{[detail.venueName, detail.venueCity].filter(Boolean).join(', ')}</span>
+          ) : (
+            <span>Stade non renseigné</span>
+          )}
+          {match.roundLabel ? (
+            <span>{match.roundLabel}</span>
+          ) : match.matchday ? (
+            <span>Journée {match.matchday}</span>
+          ) : null}
         </div>
       </section>
 
@@ -61,13 +85,15 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               <div className="lineup-card" key={team.id}>
                 <h3>{team.name}</h3>
                 <ul>
-                  {detail.lineups.filter((item) => item.teamId === team.id).map((item) => (
-                    <li key={item.id}>
-                      <span>{item.shirtNumber ?? '—'}</span>
-                      <Link href={`/joueur/${item.playerId}`}>{item.playerName}</Link>
-                      {item.captain ? <small>C</small> : null}
-                    </li>
-                  ))}
+                  {detail.lineups
+                    .filter((item) => item.teamId === team.id)
+                    .map((item) => (
+                      <li key={item.id}>
+                        <span>{item.shirtNumber ?? '—'}</span>
+                        <Link href={`/joueur/${item.playerId}`}>{item.playerName}</Link>
+                        {item.captain ? <small>C</small> : null}
+                      </li>
+                    ))}
                 </ul>
               </div>
             ))}

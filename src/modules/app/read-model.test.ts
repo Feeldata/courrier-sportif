@@ -27,7 +27,9 @@ describe('APP read models', () => {
   })
 
   it('prefers the official score when one exists', () => {
-    expect(resolveDisplayedScore({ ...baseResult, official_score_home: 2, official_score_away: 1 })).toEqual({
+    expect(
+      resolveDisplayedScore({ ...baseResult, official_score_home: 2, official_score_away: 1 }),
+    ).toEqual({
       home: 2,
       away: 1,
     })
@@ -35,13 +37,31 @@ describe('APP read models', () => {
 
   it('builds standings only from validated score rows', () => {
     const entries = [
-      { entry_id: '1', season_id: 's', team_id: 'home', entry_status: 'active', group_label: null, created_at: '', updated_at: '' },
-      { entry_id: '2', season_id: 's', team_id: 'away', entry_status: 'active', group_label: null, created_at: '', updated_at: '' },
+      {
+        entry_id: '1',
+        season_id: 's',
+        team_id: 'home',
+        entry_status: 'active',
+        group_label: null,
+        created_at: '',
+        updated_at: '',
+      },
+      {
+        entry_id: '2',
+        season_id: 's',
+        team_id: 'away',
+        entry_status: 'active',
+        group_label: null,
+        created_at: '',
+        updated_at: '',
+      },
     ] as TeamSeasonEntryRow[]
     const matches = [
       { entity_id: 'm', season_id: 's', home_team_id: 'home', away_team_id: 'away' },
     ] as MatchRow[]
-    const results = [{ ...baseResult, match_id: 'm', official_score_home: 2, official_score_away: 0 }]
+    const results = [
+      { ...baseResult, match_id: 'm', official_score_home: 2, official_score_away: 0 },
+    ]
 
     const standings = buildStandings({
       entries,
@@ -53,8 +73,20 @@ describe('APP read models', () => {
       results,
     })
 
-    expect(standings[0]).toMatchObject({ teamName: 'Home FC', played: 1, won: 1, points: 3, goalDifference: 2 })
-    expect(standings[1]).toMatchObject({ teamName: 'Away FC', played: 1, lost: 1, points: 0, goalDifference: -2 })
+    expect(standings[0]).toMatchObject({
+      teamName: 'Home FC',
+      played: 1,
+      won: 1,
+      points: 3,
+      goalDifference: 2,
+    })
+    expect(standings[1]).toMatchObject({
+      teamName: 'Away FC',
+      played: 1,
+      lost: 1,
+      points: 0,
+      goalDifference: -2,
+    })
   })
 
   it('maps search results to navigable entity routes', () => {

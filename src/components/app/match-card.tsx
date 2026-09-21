@@ -10,11 +10,15 @@ export function MatchCard({ match }: { match: MatchSummary }) {
   return (
     <Link className="match-card" href={`/match/${match.id}`}>
       <div className="match-meta">
-        <span className={`status-pill status-${match.status}`}>{matchStatusLabel(match.status)}</span>
+        <span className={`status-pill status-${match.status}`}>
+          {matchStatusLabel(match.status)}
+        </span>
         <span>{date ?? 'Date à confirmer'}</span>
       </div>
       {match.competitionName || match.seasonName ? (
-        <p className="match-context">{[match.competitionName, match.seasonName].filter(Boolean).join(' · ')}</p>
+        <p className="match-context">
+          {[match.competitionName, match.seasonName].filter(Boolean).join(' · ')}
+        </p>
       ) : null}
       <div className="match-team-row">
         <span>{match.homeTeam.name}</span>

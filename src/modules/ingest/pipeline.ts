@@ -72,7 +72,9 @@ export async function ingestFecafootDocument(
 
   if (observations.length === 0) {
     const issue: ReviewIssueDraft = {
-      validationIssueId: stableUuid(`validation:INGEST_NO_SUPPORTED_FACTS:${sourceRecord.sourceRecordId}`),
+      validationIssueId: stableUuid(
+        `validation:INGEST_NO_SUPPORTED_FACTS:${sourceRecord.sourceRecordId}`,
+      ),
       entityId: null,
       subjectLocator: { source_record_id: sourceRecord.sourceRecordId, source_url: document.url },
       ruleCode: 'INGEST_NO_SUPPORTED_FACTS',
@@ -131,10 +133,17 @@ export async function ingestFecafootDocument(
       )
     } catch (error) {
       emit(
-        event(now, 'resolve', 'error', 'IDENTITY_RESOLUTION_FAILED', 'Competition identity resolution failed.', {
-          error: error instanceof Error ? error.message : String(error),
-          subject_key: nameObservation.subjectKey,
-        }),
+        event(
+          now,
+          'resolve',
+          'error',
+          'IDENTITY_RESOLUTION_FAILED',
+          'Competition identity resolution failed.',
+          {
+            error: error instanceof Error ? error.message : String(error),
+            subject_key: nameObservation.subjectKey,
+          },
+        ),
       )
       throw error
     }
@@ -157,7 +166,8 @@ export async function ingestFecafootDocument(
       ruleCode: 'INGEST_COMPETITION_IDENTITY_AMBIGUOUS',
       severity: 'blocking',
       status: 'open',
-      message: 'Multiple canonical competitions match the normalized FECAFOOT competition identity.',
+      message:
+        'Multiple canonical competitions match the normalized FECAFOOT competition identity.',
       details: {
         candidate_entity_ids: candidates.map((candidate) => candidate.entityId),
         action: 'human_review_required',
@@ -169,13 +179,23 @@ export async function ingestFecafootDocument(
     emit(event(now, 'resolve', 'warning', issue.ruleCode, issue.message, issue.details))
   } else {
     competitionCandidate = buildCompetitionCandidate(observations, candidates[0]?.entityId)
-    if (competitionCandidate && competitionCandidate.confidence >= INGEST_V01.confidence.autoAcceptCandidate) {
+    if (
+      competitionCandidate &&
+      competitionCandidate.confidence >= INGEST_V01.confidence.autoAcceptCandidate
+    ) {
       emit(
-        event(now, 'validate', 'info', 'COMPETITION_AUTO_ACCEPTED', 'Competition candidate passed V0.1 confidence gate.', {
-          entity_id: competitionCandidate.canonicalId,
-          confidence: competitionCandidate.confidence,
-          resolution: competitionCandidate.identityResolution.kind,
-        }),
+        event(
+          now,
+          'validate',
+          'info',
+          'COMPETITION_AUTO_ACCEPTED',
+          'Competition candidate passed V0.1 confidence gate.',
+          {
+            entity_id: competitionCandidate.canonicalId,
+            confidence: competitionCandidate.confidence,
+            resolution: competitionCandidate.identityResolution.kind,
+          },
+        ),
       )
       canonicalEntityIds.push(competitionCandidate.canonicalId)
       if (!dryRun) {
@@ -197,10 +217,17 @@ export async function ingestFecafootDocument(
           )
         } catch (error) {
           emit(
-            event(now, 'write', 'error', 'CANONICAL_WRITE_FAILED', 'Canonical competition write failed.', {
-              error: error instanceof Error ? error.message : String(error),
-              entity_id: competitionCandidate.canonicalId,
-            }),
+            event(
+              now,
+              'write',
+              'error',
+              'CANONICAL_WRITE_FAILED',
+              'Canonical competition write failed.',
+              {
+                error: error instanceof Error ? error.message : String(error),
+                entity_id: competitionCandidate.canonicalId,
+              },
+            ),
           )
           throw error
         }
@@ -236,7 +263,16 @@ export async function ingestFecafootDocument(
   if (seasonIssue) {
     reviewIssueIds.push(seasonIssue.validationIssueId)
     if (!dryRun) await repository.upsertReviewIssue(seasonIssue)
-    emit(event(now, 'resolve', 'warning', seasonIssue.ruleCode, seasonIssue.message, seasonIssue.details))
+    emit(
+      event(
+        now,
+        'resolve',
+        'warning',
+        seasonIssue.ruleCode,
+        seasonIssue.message,
+        seasonIssue.details,
+      ),
+    )
   }
 
   return {

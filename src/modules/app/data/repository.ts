@@ -23,7 +23,10 @@ import type {
 } from '../types'
 
 export class AppDataError extends Error {
-  constructor(message: string, readonly causeDetail?: unknown) {
+  constructor(
+    message: string,
+    readonly causeDetail?: unknown,
+  ) {
     super(message)
     this.name = 'AppDataError'
   }
@@ -73,14 +76,19 @@ async function hydrateMatches(client: Client, matches: MatchRow[]): Promise<Matc
   const [teamsResponse, seasonsResponse, resultsResponse] = await Promise.all([
     fetchTeams(client, teamIds),
     client.from('seasons').select('*').in('entity_id', seasonIds),
-    client.from('match_results').select('*').in(
-      'match_id',
-      matches.map((match) => match.entity_id),
-    ),
+    client
+      .from('match_results')
+      .select('*')
+      .in(
+        'match_id',
+        matches.map((match) => match.entity_id),
+      ),
   ])
 
-  if ('error' in seasonsResponse && seasonsResponse.error) fail('des saisons', seasonsResponse.error)
-  if ('error' in resultsResponse && resultsResponse.error) fail('des résultats', resultsResponse.error)
+  if ('error' in seasonsResponse && seasonsResponse.error)
+    fail('des saisons', seasonsResponse.error)
+  if ('error' in resultsResponse && resultsResponse.error)
+    fail('des résultats', resultsResponse.error)
 
   const teams = teamsResponse
   const seasons = (seasonsResponse.data ?? []) as SeasonRow[]
@@ -96,7 +104,9 @@ async function hydrateMatches(client: Client, matches: MatchRow[]): Promise<Matc
 
   const teamMap = new Map(teams.map((team) => [team.entity_id, team]))
   const seasonMap = new Map(seasons.map((season) => [season.entity_id, season]))
-  const competitionMap = new Map(competitions.map((competition) => [competition.entity_id, competition]))
+  const competitionMap = new Map(
+    competitions.map((competition) => [competition.entity_id, competition]),
+  )
   const resultMap = new Map(results.map((result) => [result.match_id, result]))
 
   return matches.flatMap((match) => {
@@ -171,7 +181,11 @@ export async function listCompetitions(): Promise<CompetitionSummary[]> {
 export async function getCompetitionDetail(id: string): Promise<CompetitionDetail | null> {
   if (!isUuid(id)) return null
   const client = getClient()
-  const competitionResponse = await client.from('competitions').select('*').eq('entity_id', id).maybeSingle()
+  const competitionResponse = await client
+    .from('competitions')
+    .select('*')
+    .eq('entity_id', id)
+    .maybeSingle()
   if (competitionResponse.error) fail('de la compétition', competitionResponse.error)
   if (!competitionResponse.data) return null
 
@@ -215,7 +229,10 @@ export async function getCompetitionDetail(id: string): Promise<CompetitionDetai
       const response = await client
         .from('match_results')
         .select('*')
-        .in('match_id', matches.map((match) => match.entity_id))
+        .in(
+          'match_id',
+          matches.map((match) => match.entity_id),
+        )
       if (response.error) fail('des résultats', response.error)
       results = response.data ?? []
     }

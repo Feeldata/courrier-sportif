@@ -6,7 +6,11 @@ import { getClubDetail } from '@/modules/app/data/repository'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
   const { id } = await params
   const detail = await getClubDetail(id)
   return { title: detail?.club.official_name ?? 'Club' }
@@ -20,7 +24,9 @@ export default async function ClubPage({ params }: { params: Promise<{ id: strin
   return (
     <div className="page-stack">
       <header className="profile-hero">
-        <div className="profile-monogram" aria-hidden="true">{detail.club.official_name.slice(0, 2).toUpperCase()}</div>
+        <div className="profile-monogram" aria-hidden="true">
+          {detail.club.official_name.slice(0, 2).toUpperCase()}
+        </div>
         <div>
           <p className="eyebrow">Club</p>
           <h1>{detail.club.official_name}</h1>
@@ -41,7 +47,9 @@ export default async function ClubPage({ params }: { params: Promise<{ id: strin
         detail.teams.map(({ team, players }) => (
           <section className="page-section" key={team.entity_id}>
             <SectionHeader title={team.name} />
-            <p className="section-note">{[team.gender, team.age_category].filter(Boolean).join(' · ')}</p>
+            <p className="section-note">
+              {[team.gender, team.age_category].filter(Boolean).join(' · ')}
+            </p>
             {players.length > 0 ? (
               <div className="card-list">
                 {players.map(({ player }) => (

@@ -21,7 +21,11 @@ test('FECAFOOT HTML parser extracts title, date precision and visible article te
 
 test('FECAFOOT parser fails explicitly when title metadata is missing', () => {
   assert.throws(
-    () => parseFecafootHtml('https://fecafoot-officiel.com/actualite/32843/2026/01/13/', '<article>fact</article>'),
+    () =>
+      parseFecafootHtml(
+        'https://fecafoot-officiel.com/actualite/32843/2026/01/13/',
+        '<article>fact</article>',
+      ),
     FecafootParseError,
   )
 })

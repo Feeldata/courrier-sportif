@@ -98,7 +98,10 @@ export function buildSourceRecord(document: FetchedSourceDocument, now: string):
 
 function observation(
   sourceRecord: SourceRecordDraft,
-  input: Omit<ObservationDraft, 'observationId' | 'sourceRecordId' | 'subjectEntityId' | 'status' | 'observedAt'>,
+  input: Omit<
+    ObservationDraft,
+    'observationId' | 'sourceRecordId' | 'subjectEntityId' | 'status' | 'observedAt'
+  >,
 ): ObservationDraft {
   const observationId = stableUuid(
     `observation:${sourceRecord.sourceRecordId}:${input.subjectEntityType}:${input.subjectKey}:${input.fieldName}`,
@@ -221,16 +224,20 @@ export function buildCompetitionCandidate(
   existingEntityId?: string,
 ): CompetitionCandidate | null {
   const competitionObservations = observations.filter(
-    (item) => item.subjectEntityType === 'competition' && item.subjectKey === 'competition:mtn-elite-one',
+    (item) =>
+      item.subjectEntityType === 'competition' && item.subjectKey === 'competition:mtn-elite-one',
   )
   const name = competitionObservations.find((item) => item.fieldName === 'name')
-  const competitionType = competitionObservations.find((item) => item.fieldName === 'competition_type')
+  const competitionType = competitionObservations.find(
+    (item) => item.fieldName === 'competition_type',
+  )
   if (typeof name?.normalizedValue !== 'string' || competitionType?.normalizedValue !== 'league') {
     return null
   }
 
   const confidence = Math.min(...competitionObservations.map((item) => item.confidence))
-  const canonicalId = existingEntityId ?? stableUuid('entity:competition:CM:mtn-elite-one:male:senior')
+  const canonicalId =
+    existingEntityId ?? stableUuid('entity:competition:CM:mtn-elite-one:male:senior')
 
   return {
     kind: 'competition',

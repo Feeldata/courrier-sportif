@@ -4,7 +4,11 @@ import { NoDataState } from './states'
 
 export function StandingsTable({ rows }: { rows: StandingRow[] }) {
   if (rows.length === 0) {
-    return <NoDataState>Aucun classement calculable avec les résultats validés actuellement.</NoDataState>
+    return (
+      <NoDataState>
+        Aucun classement calculable avec les résultats validés actuellement.
+      </NoDataState>
+    )
   }
 
   return (
@@ -32,7 +36,9 @@ export function StandingsTable({ rows }: { rows: StandingRow[] }) {
               <td>{row.drawn}</td>
               <td>{row.lost}</td>
               <td>{row.goalDifference > 0 ? `+${row.goalDifference}` : row.goalDifference}</td>
-              <td><strong>{row.points}</strong></td>
+              <td>
+                <strong>{row.points}</strong>
+              </td>
             </tr>
           ))}
         </tbody>

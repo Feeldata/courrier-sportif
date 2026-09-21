@@ -42,7 +42,9 @@ if (fixturePath) {
 }
 
 if (dryRun) {
-  const result = await ingestFecafootDocument(new MemoryIngestRepository(), document, { dryRun: true })
+  const result = await ingestFecafootDocument(new MemoryIngestRepository(), document, {
+    dryRun: true,
+  })
   console.log(JSON.stringify(result, null, 2))
   process.exit(0)
 }

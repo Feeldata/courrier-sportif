@@ -12,7 +12,10 @@ export class MemoryIngestRepository implements IngestRepository {
   readonly sources = new Map<string, SourceDefinition>()
   readonly sourceRecords = new Map<string, SourceRecordDraft>()
   readonly observations = new Map<string, ObservationDraft>()
-  readonly competitions = new Map<string, CompetitionIdentity & { competitionType: 'league'; organizerName: string }>()
+  readonly competitions = new Map<
+    string,
+    CompetitionIdentity & { competitionType: 'league'; organizerName: string }
+  >()
   readonly entities = new Map<string, 'competition'>()
   readonly reviewIssues = new Map<string, ReviewIssueDraft>()
 
@@ -25,7 +28,8 @@ export class MemoryIngestRepository implements IngestRepository {
   }
 
   async upsertObservations(observations: ObservationDraft[]): Promise<void> {
-    for (const item of observations) this.observations.set(item.observationId, structuredClone(item))
+    for (const item of observations)
+      this.observations.set(item.observationId, structuredClone(item))
   }
 
   async findCompetitionCandidates(normalizedName: string): Promise<CompetitionIdentity[]> {
@@ -59,7 +63,8 @@ export class MemoryIngestRepository implements IngestRepository {
   async acceptObservations(observationIds: string[], entityId: string): Promise<void> {
     for (const id of observationIds) {
       const item = this.observations.get(id)
-      if (item) this.observations.set(id, { ...item, status: 'accepted', subjectEntityId: entityId })
+      if (item)
+        this.observations.set(id, { ...item, status: 'accepted', subjectEntityId: entityId })
     }
   }
 

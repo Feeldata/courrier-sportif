@@ -29,7 +29,9 @@ if (!repository.startsWith("import 'server-only'")) {
   throw new Error('APP data repository must remain server-only')
 }
 if (!repository.includes('createAdminSupabaseClient')) {
-  throw new Error('APP data repository must use the server-only Supabase read facade while public RLS policies are absent')
+  throw new Error(
+    'APP data repository must use the server-only Supabase read facade while public RLS policies are absent',
+  )
 }
 if (repository.includes('@/modules/ingest') || repository.includes('@/modules/match')) {
   throw new Error('APP repository crosses a protected module boundary')

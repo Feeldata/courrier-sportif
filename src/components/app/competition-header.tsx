@@ -6,7 +6,9 @@ import { TrophyIcon } from './icons'
 export function CompetitionHeader({ competition }: { competition: CompetitionRow }) {
   return (
     <section className="competition-hero">
-      <span className="competition-hero-icon"><TrophyIcon /></span>
+      <span className="competition-hero-icon">
+        <TrophyIcon />
+      </span>
       <div>
         <p className="eyebrow">{competitionTypeLabel(competition.competition_type)}</p>
         <h1>{competition.name}</h1>

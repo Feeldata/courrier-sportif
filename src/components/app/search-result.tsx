@@ -20,7 +20,9 @@ export function SearchResult({ result }: { result: SearchResultItem }) {
   const Icon = icons[result.kind]
   return (
     <Link className="search-result" href={result.href}>
-      <span className="search-result-icon"><Icon /></span>
+      <span className="search-result-icon">
+        <Icon />
+      </span>
       <span className="search-result-copy">
         <small>{labels[result.kind]}</small>
         <strong>{result.title}</strong>

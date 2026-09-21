@@ -25,7 +25,9 @@ export function MatchTimeline({ events }: { events: MatchEventView[] }) {
       {events.map((event) => (
         <li key={event.id}>
           <div className="timeline-time">
-            {event.minute === null ? '—' : `${event.minute}${event.stoppageMinute ? `+${event.stoppageMinute}` : ''}’`}
+            {event.minute === null
+              ? '—'
+              : `${event.minute}${event.stoppageMinute ? `+${event.stoppageMinute}` : ''}’`}
           </div>
           <div className="timeline-dot" aria-hidden="true" />
           <div className="timeline-content">

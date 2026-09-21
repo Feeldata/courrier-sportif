@@ -18,10 +18,15 @@ export default async function CompetitionsPage() {
       />
       {competitions.length > 0 ? (
         <div className="card-list">
-          {competitions.map((competition) => <CompetitionCard key={competition.id} competition={competition} />)}
+          {competitions.map((competition) => (
+            <CompetitionCard key={competition.id} competition={competition} />
+          ))}
         </div>
       ) : (
-        <EmptyState title="Aucune compétition" description="Aucune compétition n’a encore été publiée dans la base validée." />
+        <EmptyState
+          title="Aucune compétition"
+          description="Aucune compétition n’a encore été publiée dans la base validée."
+        />
       )}
     </div>
   )

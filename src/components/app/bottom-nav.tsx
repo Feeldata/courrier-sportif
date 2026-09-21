@@ -18,7 +18,9 @@ export function BottomNav() {
     <nav className="bottom-nav" aria-label="Navigation principale">
       {items.map((item) => {
         const active =
-          item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(`${item.href}/`)
+          item.href === '/'
+            ? pathname === '/'
+            : pathname === item.href || pathname.startsWith(`${item.href}/`)
         const Icon = item.icon
         return (
           <Link

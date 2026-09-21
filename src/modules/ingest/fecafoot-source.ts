@@ -39,9 +39,13 @@ function extractTitle(html: string): string {
   throw new FecafootParseError('FECAFOOT page title not found')
 }
 
-function extractPublishedAt(html: string, url: string): Pick<FetchedSourceDocument, 'publishedAt' | 'publishedAtPrecision'> {
+function extractPublishedAt(
+  html: string,
+  url: string,
+): Pick<FetchedSourceDocument, 'publishedAt' | 'publishedAtPrecision'> {
   const time = html.match(/<time\b[^>]+datetime=["']([^"']+)["'][^>]*>/i)
-  if (time?.[1]) return { publishedAt: new Date(time[1]).toISOString(), publishedAtPrecision: 'exact' }
+  if (time?.[1])
+    return { publishedAt: new Date(time[1]).toISOString(), publishedAtPrecision: 'exact' }
 
   const urlDate = url.match(/\/(20\d{2})\/(\d{2})\/(\d{2})\/?(?:$|[?#])/)
   if (urlDate) {
@@ -53,7 +57,11 @@ function extractPublishedAt(html: string, url: string): Pick<FetchedSourceDocume
   return { publishedAt: null, publishedAtPrecision: 'unknown' }
 }
 
-export function parseFecafootHtml(url: string, html: string, fetchedAt?: string): FetchedSourceDocument {
+export function parseFecafootHtml(
+  url: string,
+  html: string,
+  fetchedAt?: string,
+): FetchedSourceDocument {
   const title = extractTitle(html)
   const article = html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)?.[1] ?? html
   const text = stripHtml(article)
@@ -83,7 +91,8 @@ export async function fetchFecafootDocument(url: string): Promise<FetchedSourceD
     signal: AbortSignal.timeout(20_000),
     cache: 'no-store',
   })
-  if (!response.ok) throw new FecafootFetchError(`FECAFOOT fetch failed with HTTP ${response.status}`)
+  if (!response.ok)
+    throw new FecafootFetchError(`FECAFOOT fetch failed with HTTP ${response.status}`)
   const contentType = response.headers.get('content-type') ?? ''
   if (!contentType.includes('text/html')) {
     throw new FecafootFetchError(`Unsupported FECAFOOT content type: ${contentType}`)
