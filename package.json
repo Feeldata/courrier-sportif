@@ -18,7 +18,7 @@
     "check:boundaries": "node scripts/check-boundaries.mjs",
     "verify:foundation": "node scripts/verify-foundation.mjs",
     "db:types": "bash scripts/generate-supabase-types.sh",
-    "check": "npm run verify:foundation && npm run verify:app && npm run verify:hardening && npm run check:boundaries && npm run lint && npm run format:check && npm run typecheck && npm run test:ingest:core && npm run test && npm run build",
+    "check": "npm run verify:foundation && npm run verify:app && npm run verify:hardening && npm run check:boundaries && npm run lint && npm run format:check && npm run typegen && npm run typecheck && npm run test:ingest:core && npm run test && npm run build",
     "test:ingest:core": "node --experimental-strip-types --test src/modules/ingest/*.node.test.ts",
     "ingest:fecafoot:dry-run": "node --experimental-strip-types src/modules/ingest/cli.ts --dry-run --fixture src/modules/ingest/fixtures/fecafoot-elite-one-launch-2026.json",
     "ingest:fecafoot": "node --experimental-strip-types src/modules/ingest/cli.ts",
@@ -26,7 +26,8 @@
     "verify:app": "node scripts/verify-app.mjs",
     "test:ai:core": "vitest run src/modules/ai/ai.test.ts",
     "verify:hardening": "node scripts/verify-hardening.mjs",
-    "test:integration": "vitest run src/integration/hardening.test.ts"
+    "test:integration": "vitest run src/integration/hardening.test.ts",
+    "typegen": "next typegen"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
