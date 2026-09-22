@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { MatchDomainError } from './lifecycle'
+import type { MatchDomainError } from './lifecycle'
 import { MemoryMatchRepository } from './memory-repository'
 import { MatchService } from './service'
 import { CAMEROON_REALISTIC_MATCH as fixture } from './fixtures/cameroon-realistic'
