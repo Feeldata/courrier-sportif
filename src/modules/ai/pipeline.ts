@@ -38,14 +38,6 @@ function observationConfidence(facts: ExtractedFact[]) {
   return Math.min(...facts.map((fact) => fact.confidence ?? 0))
 }
 
-function emptyConfidence(source: number) {
-  return scoreConfidence({
-    observationConfidence: 0,
-    sourceConfidence: source,
-    identityConfidence: 0,
-  })
-}
-
 function issueSeverity(reasonCode: string): 'warning' | 'blocking' {
   return [
     'AI_IDENTITY_AMBIGUOUS',
