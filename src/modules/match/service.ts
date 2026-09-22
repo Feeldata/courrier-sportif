@@ -47,12 +47,12 @@ async function requireMatch(repository: MatchRepository, matchId: string) {
   return match
 }
 
-async function linkProvenance(
+async function validateProvenance(
   repository: MatchRepository,
   matchId: string,
   provenance: ProvenanceInput | undefined,
-) {
-  if (!provenance || provenance.observationIds.length === 0) return
+): Promise<string[]> {
+  if (!provenance || provenance.observationIds.length === 0) return []
   const uniqueIds = [...new Set(provenance.observationIds)]
   const rows = await repository.getSourceObservations(uniqueIds)
   if (rows.length !== uniqueIds.length) {
@@ -81,7 +81,17 @@ async function linkProvenance(
       )
     }
   }
-  await repository.acceptMatchObservations(matchId, uniqueIds)
+  return uniqueIds
+}
+
+async function linkProvenance(
+  repository: MatchRepository,
+  matchId: string,
+  provenance: ProvenanceInput | undefined,
+) {
+  const observationIds = await validateProvenance(repository, matchId, provenance)
+  if (observationIds.length === 0) return
+  await repository.acceptMatchObservations(matchId, observationIds)
 }
 
 function assertTeamBelongsToMatch(
@@ -443,6 +453,18 @@ export class MatchService {
         expected[0] !== input.officialScoreHome ||
         expected[1] !== input.officialScoreAway)
 
+    const observedPenalties =
+      result?.penalties_home !== null &&
+      result?.penalties_home !== undefined &&
+      result.penalties_away !== null &&
+      result.penalties_away !== undefined
+        ? ([result.penalties_home, result.penalties_away] as const)
+        : null
+    const penaltyMismatch =
+      input.decisionType === 'penalties' &&
+      observedPenalties !== null &&
+      (input.penaltiesHome !== observedPenalties[0] || input.penaltiesAway !== observedPenalties[1])
+
     const draw = input.officialScoreHome === input.officialScoreAway
     const winnerMismatch = (() => {
       if (input.decisionType === 'penalties') {
@@ -460,7 +482,12 @@ export class MatchService {
       return input.winnerTeamId !== expectedWinner
     })()
 
-    if (scoreMismatch || winnerMismatch) {
+    if (scoreMismatch || penaltyMismatch || winnerMismatch) {
+      const provenanceObservationIds = await validateProvenance(
+        this.repository,
+        matchId,
+        input.provenance,
+      )
       const issueId = stableIssueId(matchId, 'MATCH_OFFICIAL_RESULT_REVIEW_REQUIRED')
       await this.repository.upsertValidationIssue({
         validation_issue_id: issueId,
@@ -473,12 +500,20 @@ export class MatchService {
         subject_locator: { match_id: matchId },
         details: {
           observed_score: expected ? { home: expected[0], away: expected[1] } : null,
+          observed_penalties: observedPenalties
+            ? { home: observedPenalties[0], away: observedPenalties[1] }
+            : null,
           proposed_official_score: {
             home: input.officialScoreHome,
             away: input.officialScoreAway,
           },
+          proposed_penalties:
+            input.decisionType === 'penalties'
+              ? { home: input.penaltiesHome ?? null, away: input.penaltiesAway ?? null }
+              : null,
           decision_type: input.decisionType,
           winner_team_id: input.winnerTeamId,
+          provenance_observation_ids: provenanceObservationIds,
         },
       })
       return { status: 'review_required', issueId }
