@@ -54,6 +54,7 @@ export interface AiSubjectDecision {
   identityValue: string | null
   normalizedIdentity: string | null
   candidates: IdentityCandidate[]
+  linkedEntityIds: string[]
   confidence: ConfidenceBreakdown
   decision: AiDecision
   reasonCode: string
