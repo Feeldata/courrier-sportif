@@ -437,5 +437,4 @@ describe('MATCH V0.1 critical lifecycle', () => {
       subject_entity_id: null,
     })
   })
-
 })
