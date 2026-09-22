@@ -314,7 +314,9 @@ describe('AI V0.1 guardrails and assisted resolution', () => {
     const repository = seededRepository([item])
     repository.identityCandidates.set('competition:mtn elite one', [canonicalCandidate()])
 
-    const beforeObservation = structuredClone(repository.sourceObservations.get(item.observation_id))
+    const beforeObservation = structuredClone(
+      repository.sourceObservations.get(item.observation_id),
+    )
     const result = await new AiV01Service(repository).analyzeSourceRecord(RECORD_ID)
 
     expect(result.apply).toBe(false)
