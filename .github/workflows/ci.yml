@@ -24,3 +24,5 @@ jobs:
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ci-placeholder-publishable-key
           SUPABASE_PROJECT_REF: ci-placeholder-project-ref
           SUPABASE_SECRET_KEY: ci-placeholder-secret-key
+      - name: Ensure build leaves tracked files clean
+        run: test -z "$(git status --porcelain --untracked-files=no)"
