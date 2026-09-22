@@ -7,8 +7,9 @@ Mobile-first/PWA codebase for Courrier Sportif, connected to the production Supa
 - Foundation V0.1: Next.js App Router, TypeScript, Supabase clients/types, PWA shell, quality gates and module boundaries.
 - INGEST V0.1: FECAFOOT source pipeline with provenance, confidence, idempotency, dry-run and human review routing.
 - APP MVP V0.1: public home, competitions, match, club, player and search experiences with sparse-data states.
-
-No MATCH-live system or additional AI automation is implemented here.
+- MATCH V0.1: fixture lifecycle, lineups, ordered events, observed score and official validation.
+- AI V0.1: source-backed extraction, normalization, identity resolution, confidence, ambiguity handling and human review.
+- Hardening V0.1: cross-module integration tests, staging checks, secret boundaries and deployment/recovery documentation.
 
 ## Stack
 
@@ -21,7 +22,7 @@ No MATCH-live system or additional AI automation is implemented here.
 ## Local setup
 
 1. Use Node 22 or newer.
-2. Run `npm install`. Commit the generated `package-lock.json`; CI prefers `npm ci` whenever the lockfile is present.
+2. Run `npm ci`. The committed `package-lock.json` is the reproducible dependency contract.
 3. Copy `.env.example` to `.env.local`.
 4. Configure the Supabase URL, publishable key, project ref and server-only secret key in the runtime environment. Never put a secret key in a `NEXT_PUBLIC_*` variable.
 5. Run `npm run dev`.
@@ -74,7 +75,7 @@ npm run test:ingest:core
 npm run test:app:core
 ```
 
-Until the first connected environment generates `package-lock.json`, CI falls back to `npm install --ignore-scripts`; after the lockfile is committed it automatically uses `npm ci`.
+CI uses `npm ci` only. The full gate also runs INGEST's Node test suite and the cross-module hardening tests.
 
 ## Branch convention
 
@@ -101,3 +102,7 @@ npm run ingest:fecafoot -- --url https://fecafoot-officiel.com/actualite/32843/2
 ```
 
 See `docs/ingest-v0.1.md` and `docs/app-v0.1.md` for operational details.
+
+## Staging
+
+Use a dedicated staging Supabase project and configure deployment secrets in the hosting platform. Do not point an isolated staging deployment at another product's Supabase project. See `docs/staging-v0.1.md` for the deployment, RLS and rollback checklist.
