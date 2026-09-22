@@ -310,4 +310,132 @@ describe('MATCH V0.1 critical lifecycle', () => {
       }),
     ).rejects.toMatchObject({ code: 'EVENT_OUT_OF_ORDER' } satisfies Partial<MatchDomainError>)
   })
+
+  it('validates matching observed and official penalty shootout scores', async () => {
+    const repository = seedRepository()
+    const service = new MatchService(repository)
+    await createFixture(service)
+    await service.transitionStatus(fixture.matchId, 'live')
+    await service.finishMatch(fixture.matchId, {
+      eventFeedComplete: false,
+      observedResult: {
+        score90Home: 1,
+        score90Away: 1,
+        scoreEtHome: 1,
+        scoreEtAway: 1,
+        penaltiesHome: 5,
+        penaltiesAway: 4,
+      },
+    })
+
+    const validation = await service.validateOfficialResult(fixture.matchId, {
+      officialScoreHome: 1,
+      officialScoreAway: 1,
+      penaltiesHome: 5,
+      penaltiesAway: 4,
+      decisionType: 'penalties',
+      winnerTeamId: fixture.homeTeamId,
+    })
+
+    expect(validation).toEqual({ status: 'validated' })
+    expect(repository.matchResults.get(fixture.matchId)).toMatchObject({
+      score_et_home: 1,
+      score_et_away: 1,
+      penalties_home: 5,
+      penalties_away: 4,
+      official_score_home: 1,
+      official_score_away: 1,
+      decision_type: 'penalties',
+      winner_team_id: fixture.homeTeamId,
+    })
+  })
+
+  it('routes a conflicting official penalty shootout score to review even with the same winner', async () => {
+    const repository = seedRepository()
+    const service = new MatchService(repository)
+    await createFixture(service)
+    await service.transitionStatus(fixture.matchId, 'live')
+    await service.finishMatch(fixture.matchId, {
+      eventFeedComplete: false,
+      observedResult: {
+        score90Home: 1,
+        score90Away: 1,
+        scoreEtHome: 1,
+        scoreEtAway: 1,
+        penaltiesHome: 5,
+        penaltiesAway: 4,
+      },
+    })
+
+    const validation = await service.validateOfficialResult(fixture.matchId, {
+      officialScoreHome: 1,
+      officialScoreAway: 1,
+      penaltiesHome: 4,
+      penaltiesAway: 3,
+      decisionType: 'penalties',
+      winnerTeamId: fixture.homeTeamId,
+    })
+
+    expect(validation.status).toBe('review_required')
+    expect(repository.validationIssues.size).toBe(1)
+    expect(repository.matchResults.get(fixture.matchId)).toMatchObject({
+      penalties_home: 5,
+      penalties_away: 4,
+      official_score_home: null,
+      official_score_away: null,
+      decision_type: 'unknown',
+    })
+  })
+
+  it('keeps conflicting official provenance in the review issue without accepting it', async () => {
+    const repository = seedRepository()
+    const service = new MatchService(repository)
+    const observationId = '10000000-0000-4000-8000-000000000099'
+    repository.sourceObservations.set(observationId, {
+      observation_id: observationId,
+      source_record_id: '10000000-0000-4000-8000-000000000098',
+      subject_entity_id: null,
+      subject_entity_type: 'match',
+      subject_key: 'match:canon-coton:official-conflict',
+      field_name: 'official_result',
+      raw_value: { score: '2-0' },
+      normalized_value: { home: 2, away: 0 },
+      confidence: 0.96,
+      status: 'candidate',
+      observed_at: NOW,
+      created_at: NOW,
+    })
+
+    await createFixture(service)
+    await service.transitionStatus(fixture.matchId, 'live')
+    await service.finishMatch(fixture.matchId, {
+      eventFeedComplete: false,
+      observedResult: {
+        score90Home: 1,
+        score90Away: 0,
+      },
+    })
+
+    const validation = await service.validateOfficialResult(fixture.matchId, {
+      officialScoreHome: 2,
+      officialScoreAway: 0,
+      decisionType: 'regulation',
+      winnerTeamId: fixture.homeTeamId,
+      provenance: { observationIds: [observationId] },
+    })
+
+    expect(validation.status).toBe('review_required')
+    const issue = [...repository.validationIssues.values()][0]
+    expect(issue).toMatchObject({
+      rule_code: 'MATCH_OFFICIAL_RESULT_REVIEW_REQUIRED',
+      details: {
+        provenance_observation_ids: [observationId],
+      },
+    })
+    expect(repository.sourceObservations.get(observationId)).toMatchObject({
+      status: 'candidate',
+      subject_entity_id: null,
+    })
+  })
+
 })
