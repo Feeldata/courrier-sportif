@@ -25,4 +25,10 @@ jobs:
           SUPABASE_PROJECT_REF: ci-placeholder-project-ref
           SUPABASE_SECRET_KEY: ci-placeholder-secret-key
       - name: Ensure build leaves tracked files clean
-        run: test -z "$(git status --porcelain --untracked-files=no)"
+        shell: bash
+        run: |
+          status="$(git status --porcelain --untracked-files=no)"
+          if [ -n "$status" ]; then
+            printf '%s\n' "$status"
+            exit 1
+          fi
