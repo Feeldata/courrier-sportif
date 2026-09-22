@@ -81,7 +81,12 @@ function buildIssue(
       identity_value: decision.identityValue,
       normalized_identity: decision.normalizedIdentity,
       candidate_entity_ids: decision.candidates.map((candidate) => candidate.entityId),
-      confidence: decision.confidence,
+      confidence: {
+        observation: decision.confidence.observation,
+        source: decision.confidence.source,
+        identity: decision.confidence.identity,
+        overall: decision.confidence.overall,
+      },
     },
     detected_at: now,
   }
