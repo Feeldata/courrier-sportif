@@ -23,7 +23,8 @@
     "ingest:fecafoot:dry-run": "node --experimental-strip-types src/modules/ingest/cli.ts --dry-run --fixture src/modules/ingest/fixtures/fecafoot-elite-one-launch-2026.json",
     "ingest:fecafoot": "node --experimental-strip-types src/modules/ingest/cli.ts",
     "test:app:core": "vitest run src/modules/app/read-model.test.ts src/components/app/components.test.tsx",
-    "verify:app": "node scripts/verify-app.mjs"
+    "verify:app": "node scripts/verify-app.mjs",
+    "test:ai:core": "vitest run src/modules/ai/ai.test.ts"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
