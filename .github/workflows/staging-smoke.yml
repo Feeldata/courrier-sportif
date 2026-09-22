@@ -1,0 +1,50 @@
+name: Staging Smoke
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    if: github.head_ref == 'codex/staging/v0.1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_PUBLIC_APP_ENV: staging
+      NEXT_PUBLIC_SUPABASE_URL: https://dlilhxaixpnabefqloxs.supabase.co
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_yFtYbbcAPpUjkTfsOaJkyA_YXHYGod8
+      SUPABASE_PROJECT_REF: dlilhxaixpnabefqloxs
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Require staging server secret
+        shell: bash
+        run: |
+          if [ -z "$SUPABASE_SECRET_KEY" ]; then
+            echo "::error::SUPABASE_SECRET_KEY is not configured as a repository/environment secret."
+            exit 1
+          fi
+      - name: Run staging smoke without leaking secret
+        shell: bash
+        run: |
+          set +e
+          npm run smoke:staging > /tmp/cs-staging-smoke.log 2>&1
+          status=$?
+          set -e
+
+          if grep -Fq -- "$SUPABASE_SECRET_KEY" /tmp/cs-staging-smoke.log; then
+            echo "::error::Secret value detected in staging smoke stdout/stderr."
+            rm -f /tmp/cs-staging-smoke.log
+            exit 1
+          fi
+
+          cat /tmp/cs-staging-smoke.log
+          rm -f /tmp/cs-staging-smoke.log
+          exit "$status"
