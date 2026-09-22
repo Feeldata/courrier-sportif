@@ -233,7 +233,10 @@ export class AiV01Service {
           await this.repository.findIdentityCandidates(first.entityType, normalizedIdentity),
         )
 
-        if (candidates.length === 1 && candidates[0]?.entityId === linkedEntityId) {
+        if (
+          candidates.length === 1 &&
+          candidates[0]?.entityId === linkedEntityId
+        ) {
           decisions.push({
             subjectKey: first.subjectKey,
             entityType: first.entityType,
@@ -256,7 +259,10 @@ export class AiV01Service {
           continue
         }
 
-        if (candidates.length === 1 && candidates[0]?.entityId !== linkedEntityId) {
+        if (
+          candidates.length === 1 &&
+          candidates[0]?.entityId !== linkedEntityId
+        ) {
           decisions.push(
             reviewDecision({
               facts: group,
