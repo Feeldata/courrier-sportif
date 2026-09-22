@@ -2,7 +2,7 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 const root = path.resolve('src/modules')
-const modules = ['app', 'ingest', 'match']
+const modules = ['app', 'ingest', 'match', 'ai']
 const violations = []
 
 async function walk(dir) {
