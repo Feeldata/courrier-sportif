@@ -43,6 +43,7 @@ function issueSeverity(reasonCode: string): 'warning' | 'blocking' {
     'AI_IDENTITY_AMBIGUOUS',
     'AI_IDENTITY_EVIDENCE_CONFLICT',
     'AI_IDENTITY_LINK_CONFLICT',
+    'AI_IDENTITY_LINK_IDENTITY_CONFLICT',
   ].includes(reasonCode)
     ? 'blocking'
     : 'warning'
@@ -81,6 +82,7 @@ function buildIssue(
       identity_value: decision.identityValue,
       normalized_identity: decision.normalizedIdentity,
       candidate_entity_ids: decision.candidates.map((candidate) => candidate.entityId),
+      linked_entity_ids: decision.linkedEntityIds,
       confidence: {
         observation: decision.confidence.observation,
         source: decision.confidence.source,
@@ -96,6 +98,7 @@ function reviewDecision(input: {
   facts: ExtractedFact[]
   identityFacts: ExtractedFact[]
   candidates?: IdentityCandidate[]
+  linkedEntityIds?: string[]
   sourceScore: number
   reasonCode: string
   normalizedIdentity?: string | null
@@ -123,6 +126,7 @@ function reviewDecision(input: {
     identityValue: input.identityValue ?? null,
     normalizedIdentity: input.normalizedIdentity ?? null,
     candidates,
+    linkedEntityIds: input.linkedEntityIds ?? [],
     confidence,
     decision: input.decision ?? 'review_required',
     reasonCode: input.reasonCode,
@@ -199,26 +203,88 @@ export class AiV01Service {
       }
 
       if (linkedIds.length === 1) {
-        decisions.push({
-          subjectKey: first.subjectKey,
-          entityType: first.entityType,
-          observationIds: group.map((fact) => fact.observationId),
-          identityObservationIds: identityFacts.map((fact) => fact.observationId),
-          identityValue,
-          normalizedIdentity: identityKeys[0] ?? null,
-          candidates: [],
-          confidence: scoreConfidence({
-            observationConfidence: observationConfidence(
-              identityFacts.length > 0 ? identityFacts : group,
-            ),
-            sourceConfidence: sourceScore,
-            identityConfidence: 1,
+        const linkedEntityId = linkedIds[0] as string
+
+        if (identityFacts.length === 0 || identityKeys.length === 0) {
+          decisions.push({
+            subjectKey: first.subjectKey,
+            entityType: first.entityType,
+            observationIds: group.map((fact) => fact.observationId),
+            identityObservationIds: [],
+            identityValue: null,
+            normalizedIdentity: null,
+            candidates: [],
+            linkedEntityIds: [linkedEntityId],
+            confidence: scoreConfidence({
+              observationConfidence: observationConfidence(group),
+              sourceConfidence: sourceScore,
+              identityConfidence: 1,
+            }),
+            decision: 'already_resolved',
+            reasonCode: 'AI_ALREADY_RESOLVED',
+            canonicalEntityId: linkedEntityId,
+            validationIssueId: null,
+          })
+          continue
+        }
+
+        const normalizedIdentity = identityKeys[0] as string
+        const candidates = uniqueCandidates(
+          await this.repository.findIdentityCandidates(first.entityType, normalizedIdentity),
+        )
+
+        if (candidates.length === 1 && candidates[0]?.entityId === linkedEntityId) {
+          decisions.push({
+            subjectKey: first.subjectKey,
+            entityType: first.entityType,
+            observationIds: group.map((fact) => fact.observationId),
+            identityObservationIds: identityFacts.map((fact) => fact.observationId),
+            identityValue,
+            normalizedIdentity,
+            candidates,
+            linkedEntityIds: [linkedEntityId],
+            confidence: scoreConfidence({
+              observationConfidence: observationConfidence(identityFacts),
+              sourceConfidence: sourceScore,
+              identityConfidence: candidates[0].matchConfidence,
+            }),
+            decision: 'already_resolved',
+            reasonCode: 'AI_ALREADY_RESOLVED',
+            canonicalEntityId: linkedEntityId,
+            validationIssueId: null,
+          })
+          continue
+        }
+
+        if (candidates.length === 1 && candidates[0]?.entityId !== linkedEntityId) {
+          decisions.push(
+            reviewDecision({
+              facts: group,
+              identityFacts,
+              candidates,
+              linkedEntityIds: [linkedEntityId],
+              sourceScore,
+              reasonCode: 'AI_IDENTITY_LINK_IDENTITY_CONFLICT',
+              identityValue,
+              normalizedIdentity,
+            }),
+          )
+          continue
+        }
+
+        decisions.push(
+          reviewDecision({
+            facts: group,
+            identityFacts,
+            candidates,
+            linkedEntityIds: [linkedEntityId],
+            sourceScore,
+            reasonCode:
+              candidates.length > 1 ? 'AI_IDENTITY_AMBIGUOUS' : 'AI_IDENTITY_UNRESOLVED',
+            identityValue,
+            normalizedIdentity,
           }),
-          decision: 'already_resolved',
-          reasonCode: 'AI_ALREADY_RESOLVED',
-          canonicalEntityId: linkedIds[0] ?? null,
-          validationIssueId: null,
-        })
+        )
         continue
       }
 
@@ -285,6 +351,7 @@ export class AiV01Service {
           identityValue,
           normalizedIdentity,
           candidates,
+          linkedEntityIds: [],
           confidence,
           decision: 'automatic',
           reasonCode: 'AI_SAFE_IDENTITY_RESOLUTION',
