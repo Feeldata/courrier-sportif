@@ -62,13 +62,17 @@ function requireStagingEnvironment() {
     throw new Error('Staging smoke refused: NEXT_PUBLIC_APP_ENV must be staging.')
   }
   if (publicEnv.supabaseUrl !== STAGING_URL) {
-    throw new Error('Staging smoke refused: Supabase URL does not match the authorized staging project.')
+    throw new Error(
+      'Staging smoke refused: Supabase URL does not match the authorized staging project.',
+    )
   }
   if (process.env.SUPABASE_PROJECT_REF !== STAGING_REF) {
     throw new Error('Staging smoke refused: SUPABASE_PROJECT_REF does not match staging.')
   }
   if (!process.env.SUPABASE_SECRET_KEY) {
-    throw new Error('Staging smoke refused: SUPABASE_SECRET_KEY is missing from runtime environment.')
+    throw new Error(
+      'Staging smoke refused: SUPABASE_SECRET_KEY is missing from runtime environment.',
+    )
   }
   if (publicEnv.supabaseUrl.includes('ligpxqweieuybmupirun')) {
     throw new Error('Staging smoke refused: production project detected.')
@@ -76,7 +80,10 @@ function requireStagingEnvironment() {
   return publicEnv
 }
 
-async function expectSmokeIdsAbsent(admin: AdminClient, ingestPlan: ReturnType<typeof buildOfflinePlan>) {
+async function expectSmokeIdsAbsent(
+  admin: AdminClient,
+  ingestPlan: ReturnType<typeof buildOfflinePlan>,
+) {
   const entityIds = [
     ingestPlan.competitionCandidate?.canonicalId,
     AMBIG_ENTITY_A,
@@ -92,13 +99,7 @@ async function expectSmokeIdsAbsent(admin: AdminClient, ingestPlan: ReturnType<t
     ANON_WRITE_PROBE_ID,
   ].filter((value): value is string => Boolean(value))
 
-  const [
-    entities,
-    sources,
-    records,
-    observations,
-    aliases,
-  ] = await Promise.all([
+  const [entities, sources, records, observations, aliases] = await Promise.all([
     admin.from('entities').select('entity_id').in('entity_id', entityIds),
     admin
       .from('sources')
@@ -378,257 +379,249 @@ async function cleanup(admin: AdminClient, ingestPlan: ReturnType<typeof buildOf
 }
 
 describe('Supabase staging smoke V0.1', () => {
-  it(
-    'validates INGEST -> AI -> MATCH -> APP against the real staging project and cleans up',
-    async () => {
-      const publicEnv = requireStagingEnvironment()
-      const fixture = await loadFixture()
-      const ingestPlan = buildOfflinePlan(fixture, NOW)
-      const admin = createAdminSupabaseClient()
-      const anon = createClient<Database>(
-        publicEnv.supabaseUrl,
-        publicEnv.supabasePublishableKey,
-        {
-          auth: {
-            autoRefreshToken: false,
-            persistSession: false,
-            detectSessionInUrl: false,
-          },
-        },
-      )
+  it('validates INGEST -> AI -> MATCH -> APP against the real staging project and cleans up', async () => {
+    const publicEnv = requireStagingEnvironment()
+    const fixture = await loadFixture()
+    const ingestPlan = buildOfflinePlan(fixture, NOW)
+    const admin = createAdminSupabaseClient()
+    const anon = createClient<Database>(publicEnv.supabaseUrl, publicEnv.supabasePublishableKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+        detectSessionInUrl: false,
+      },
+    })
 
-      await expectSmokeIdsAbsent(admin, ingestPlan)
+    await expectSmokeIdsAbsent(admin, ingestPlan)
 
-      const summary = {
-        staging_ref: STAGING_REF,
-        ingest: { source_records: 0, observations: 0, idempotent: false },
-        ai: { source_backed: false, ambiguity_review: false },
-        match: { fixture: false, lineup_rows: 0, events: 0, official_result: false },
-        app: { read_match: false, read_competition: false, write_free: false },
-        rls: { anon_read_blocked: false, anon_write_blocked: false },
-        cleanup: false,
-      }
+    const summary = {
+      staging_ref: STAGING_REF,
+      ingest: { source_records: 0, observations: 0, idempotent: false },
+      ai: { source_backed: false, ambiguity_review: false },
+      match: { fixture: false, lineup_rows: 0, events: 0, official_result: false },
+      app: { read_match: false, read_competition: false, write_free: false },
+      rls: { anon_read_blocked: false, anon_write_blocked: false },
+      cleanup: false,
+    }
 
-      try {
-        const ingestRepository = new SupabaseIngestRepository(admin)
-        const logger = new CollectingIngestLogger()
-        const firstIngest = await ingestFecafootDocument(ingestRepository, fixture, {
-          now: NOW,
-          logger,
-        })
-
-        const recordCheck = await admin
-          .from('source_records')
-          .select('source_record_id')
-          .eq('source_record_id', firstIngest.sourceRecordId)
-        const observationCheck = await admin
-          .from('source_observations')
-          .select('observation_id')
-          .eq('source_record_id', firstIngest.sourceRecordId)
-        expect(recordCheck.error).toBeNull()
-        expect(recordCheck.data).toHaveLength(1)
-        expect(observationCheck.error).toBeNull()
-        expect(observationCheck.data).toHaveLength(firstIngest.observationIds.length)
-        summary.ingest.source_records = recordCheck.data?.length ?? 0
-        summary.ingest.observations = observationCheck.data?.length ?? 0
-
-        const secondIngest = await ingestFecafootDocument(ingestRepository, fixture, {
-          now: NOW,
-          logger,
-        })
-        expect(secondIngest.sourceRecordId).toBe(firstIngest.sourceRecordId)
-        expect(secondIngest.observationIds).toEqual(firstIngest.observationIds)
-
-        const recordCountAfter = await admin
-          .from('source_records')
-          .select('source_record_id')
-          .eq('source_record_id', firstIngest.sourceRecordId)
-        const observationCountAfter = await admin
-          .from('source_observations')
-          .select('observation_id')
-          .eq('source_record_id', firstIngest.sourceRecordId)
-        expect(recordCountAfter.data).toHaveLength(1)
-        expect(observationCountAfter.data).toHaveLength(firstIngest.observationIds.length)
-        summary.ingest.idempotent = true
-
-        const aiService = new AiV01Service(new SupabaseAiRepository(admin))
-        const aiIngest = await aiService.analyzeSourceRecord(firstIngest.sourceRecordId, {
-          apply: true,
-          now: NOW,
-        })
-        expect(aiIngest.extractedFacts).toHaveLength(firstIngest.observationIds.length)
-        expect(
-          aiIngest.extractedFacts.every(
-            (fact) =>
-              fact.sourceRecordId === firstIngest.sourceRecordId &&
-              firstIngest.observationIds.includes(fact.observationId),
-          ),
-        ).toBe(true)
-        expect(
-          aiIngest.decisions.some(
-            (decision) =>
-              decision.entityType === 'season' &&
-              decision.decision === 'review_required' &&
-              decision.reasonCode === 'AI_IDENTITY_EVIDENCE_MISSING',
-          ),
-        ).toBe(true)
-        summary.ai.source_backed = true
-
-        await seedAmbiguousAiFixture(admin)
-        const ambiguous = await aiService.analyzeSourceRecord(AMBIG_RECORD_ID, {
-          apply: true,
-          now: NOW,
-        })
-        expect(ambiguous.decisions[0]).toMatchObject({
-          decision: 'review_required',
-          reasonCode: 'AI_IDENTITY_AMBIGUOUS',
-          canonicalEntityId: null,
-        })
-        const ambiguousIssueId = ambiguous.decisions[0]?.validationIssueId
-        expect(ambiguousIssueId).toBeTruthy()
-        const ambiguousIssue = await admin
-          .from('validation_issues')
-          .select('validation_issue_id,rule_code')
-          .eq('validation_issue_id', ambiguousIssueId as string)
-          .maybeSingle()
-        expect(ambiguousIssue.error).toBeNull()
-        expect(ambiguousIssue.data?.rule_code).toBe('AI_IDENTITY_AMBIGUOUS')
-        const ambiguousObservation = await admin
-          .from('source_observations')
-          .select('subject_entity_id,status')
-          .eq('observation_id', AMBIG_OBSERVATION_ID)
-          .single()
-        expect(ambiguousObservation.error).toBeNull()
-        expect(ambiguousObservation.data).toMatchObject({
-          subject_entity_id: null,
-          status: 'candidate',
-        })
-        summary.ai.ambiguity_review = true
-
-        await seedMatchPrerequisites(admin)
-        const matchService = new MatchService(new SupabaseMatchRepository())
-        await matchService.createFixture({
-          matchId: MATCH_ID,
-          seasonId: MATCH_SEASON_ID,
-          homeTeamId: MATCH_HOME_TEAM_ID,
-          awayTeamId: MATCH_AWAY_TEAM_ID,
-          scheduledDate: '2026-10-04',
-          kickoffPrecision: 'unknown',
-          venueId: MATCH_VENUE_ID,
-          matchday: 1,
-          roundLabel: '[STAGING TEST] Smoke Round',
-        })
-        summary.match.fixture = true
-
-        const lineup = await matchService.setLineup(MATCH_ID, {
-          players: [
-            {
-              matchPlayerId: MATCH_HOME_PLAYER_ROW_ID,
-              playerId: MATCH_HOME_PLAYER_ID,
-              teamId: MATCH_HOME_TEAM_ID,
-              squadRole: 'starter',
-              shirtNumber: 9,
-              captain: true,
-            },
-            {
-              matchPlayerId: MATCH_AWAY_PLAYER_ROW_ID,
-              playerId: MATCH_AWAY_PLAYER_ID,
-              teamId: MATCH_AWAY_TEAM_ID,
-              squadRole: 'starter',
-              shirtNumber: 10,
-              captain: true,
-            },
-          ],
-        })
-        expect(lineup).toHaveLength(2)
-        summary.match.lineup_rows = lineup.length
-
-        await matchService.transitionStatus(MATCH_ID, 'live')
-        const events = await matchService.recordEvent(MATCH_ID, {
-          eventId: MATCH_EVENT_ID,
-          eventType: 'goal',
-          period: '1H',
-          sequenceNumber: 1,
-          minute: 31,
-          teamId: MATCH_HOME_TEAM_ID,
-          playerId: MATCH_HOME_PLAYER_ID,
-          metadata: { staging_test: true, synthetic: true },
-        })
-        expect(events).toHaveLength(1)
-        summary.match.events = events.length
-
-        const observed = await matchService.finishMatch(MATCH_ID, { eventFeedComplete: true })
-        expect(observed).toMatchObject({ score90Home: 1, score90Away: 0 })
-        const official = await matchService.validateOfficialResult(MATCH_ID, {
-          officialScoreHome: 1,
-          officialScoreAway: 0,
-          decisionType: 'regulation',
-          winnerTeamId: MATCH_HOME_TEAM_ID,
-        })
-        expect(official).toEqual({ status: 'validated' })
-        summary.match.official_result = true
-
-        const beforeAppRead = await snapshotMatchRows(admin)
-        const appMatch = await getMatchDetail(MATCH_ID)
-        const appCompetition = await getCompetitionDetail(MATCH_COMPETITION_ID)
-        expect(appMatch?.match).toMatchObject({
-          id: MATCH_ID,
-          scoreHome: 1,
-          scoreAway: 0,
-          status: 'finished',
-        })
-        expect(appMatch?.events).toHaveLength(1)
-        expect(appMatch?.lineups).toHaveLength(2)
-        expect(appCompetition?.competition.entity_id).toBe(MATCH_COMPETITION_ID)
-        expect(appCompetition?.seasons[0]?.matches[0]?.id).toBe(MATCH_ID)
-        summary.app.read_match = true
-        summary.app.read_competition = true
-
-        const afterAppRead = await snapshotMatchRows(admin)
-        expect(afterAppRead).toEqual(beforeAppRead)
-        summary.app.write_free = true
-
-        const anonRead = await anon.from('matches').select('entity_id').eq('entity_id', MATCH_ID)
-        expect(anonRead.error).toBeNull()
-        expect(anonRead.data).toEqual([])
-        summary.rls.anon_read_blocked = true
-
-        const anonWrite = await anon
-          .from('entities')
-          .insert({ entity_id: ANON_WRITE_PROBE_ID, entity_type: 'match' })
-        expect(anonWrite.error).not.toBeNull()
-        const probeCheck = await admin
-          .from('entities')
-          .select('entity_id')
-          .eq('entity_id', ANON_WRITE_PROBE_ID)
-        expect(probeCheck.error).toBeNull()
-        expect(probeCheck.data).toEqual([])
-        summary.rls.anon_write_blocked = true
-
-        console.info(JSON.stringify({ component: 'staging-smoke', phase: 'verified', summary }))
-      } finally {
-        await cleanup(admin, ingestPlan)
-        await expectSmokeIdsAbsent(admin, ingestPlan)
-        summary.cleanup = true
-        console.info(
-          JSON.stringify({
-            component: 'staging-smoke',
-            phase: 'cleanup',
-            cleanup: 'complete',
-            staging_ref: STAGING_REF,
-          }),
-        )
-      }
-
-      expect(summary).toMatchObject({
-        ingest: { source_records: 1, observations: 5, idempotent: true },
-        ai: { source_backed: true, ambiguity_review: true },
-        match: { fixture: true, lineup_rows: 2, events: 1, official_result: true },
-        app: { read_match: true, read_competition: true, write_free: true },
-        rls: { anon_read_blocked: true, anon_write_blocked: true },
-        cleanup: true,
+    try {
+      const ingestRepository = new SupabaseIngestRepository(admin)
+      const logger = new CollectingIngestLogger()
+      const firstIngest = await ingestFecafootDocument(ingestRepository, fixture, {
+        now: NOW,
+        logger,
       })
-    },
-    90_000,
-  )
+
+      const recordCheck = await admin
+        .from('source_records')
+        .select('source_record_id')
+        .eq('source_record_id', firstIngest.sourceRecordId)
+      const observationCheck = await admin
+        .from('source_observations')
+        .select('observation_id')
+        .eq('source_record_id', firstIngest.sourceRecordId)
+      expect(recordCheck.error).toBeNull()
+      expect(recordCheck.data).toHaveLength(1)
+      expect(observationCheck.error).toBeNull()
+      expect(observationCheck.data).toHaveLength(firstIngest.observationIds.length)
+      summary.ingest.source_records = recordCheck.data?.length ?? 0
+      summary.ingest.observations = observationCheck.data?.length ?? 0
+
+      const secondIngest = await ingestFecafootDocument(ingestRepository, fixture, {
+        now: NOW,
+        logger,
+      })
+      expect(secondIngest.sourceRecordId).toBe(firstIngest.sourceRecordId)
+      expect(secondIngest.observationIds).toEqual(firstIngest.observationIds)
+
+      const recordCountAfter = await admin
+        .from('source_records')
+        .select('source_record_id')
+        .eq('source_record_id', firstIngest.sourceRecordId)
+      const observationCountAfter = await admin
+        .from('source_observations')
+        .select('observation_id')
+        .eq('source_record_id', firstIngest.sourceRecordId)
+      expect(recordCountAfter.data).toHaveLength(1)
+      expect(observationCountAfter.data).toHaveLength(firstIngest.observationIds.length)
+      summary.ingest.idempotent = true
+
+      const aiService = new AiV01Service(new SupabaseAiRepository(admin))
+      const aiIngest = await aiService.analyzeSourceRecord(firstIngest.sourceRecordId, {
+        apply: true,
+        now: NOW,
+      })
+      expect(aiIngest.extractedFacts).toHaveLength(firstIngest.observationIds.length)
+      expect(
+        aiIngest.extractedFacts.every(
+          (fact) =>
+            fact.sourceRecordId === firstIngest.sourceRecordId &&
+            firstIngest.observationIds.includes(fact.observationId),
+        ),
+      ).toBe(true)
+      expect(
+        aiIngest.decisions.some(
+          (decision) =>
+            decision.entityType === 'season' &&
+            decision.decision === 'review_required' &&
+            decision.reasonCode === 'AI_IDENTITY_EVIDENCE_MISSING',
+        ),
+      ).toBe(true)
+      summary.ai.source_backed = true
+
+      await seedAmbiguousAiFixture(admin)
+      const ambiguous = await aiService.analyzeSourceRecord(AMBIG_RECORD_ID, {
+        apply: true,
+        now: NOW,
+      })
+      expect(ambiguous.decisions[0]).toMatchObject({
+        decision: 'review_required',
+        reasonCode: 'AI_IDENTITY_AMBIGUOUS',
+        canonicalEntityId: null,
+      })
+      const ambiguousIssueId = ambiguous.decisions[0]?.validationIssueId
+      expect(ambiguousIssueId).toBeTruthy()
+      const ambiguousIssue = await admin
+        .from('validation_issues')
+        .select('validation_issue_id,rule_code')
+        .eq('validation_issue_id', ambiguousIssueId as string)
+        .maybeSingle()
+      expect(ambiguousIssue.error).toBeNull()
+      expect(ambiguousIssue.data?.rule_code).toBe('AI_IDENTITY_AMBIGUOUS')
+      const ambiguousObservation = await admin
+        .from('source_observations')
+        .select('subject_entity_id,status')
+        .eq('observation_id', AMBIG_OBSERVATION_ID)
+        .single()
+      expect(ambiguousObservation.error).toBeNull()
+      expect(ambiguousObservation.data).toMatchObject({
+        subject_entity_id: null,
+        status: 'candidate',
+      })
+      summary.ai.ambiguity_review = true
+
+      await seedMatchPrerequisites(admin)
+      const matchService = new MatchService(new SupabaseMatchRepository())
+      await matchService.createFixture({
+        matchId: MATCH_ID,
+        seasonId: MATCH_SEASON_ID,
+        homeTeamId: MATCH_HOME_TEAM_ID,
+        awayTeamId: MATCH_AWAY_TEAM_ID,
+        scheduledDate: '2026-10-04',
+        kickoffPrecision: 'unknown',
+        venueId: MATCH_VENUE_ID,
+        matchday: 1,
+        roundLabel: '[STAGING TEST] Smoke Round',
+      })
+      summary.match.fixture = true
+
+      const lineup = await matchService.setLineup(MATCH_ID, {
+        players: [
+          {
+            matchPlayerId: MATCH_HOME_PLAYER_ROW_ID,
+            playerId: MATCH_HOME_PLAYER_ID,
+            teamId: MATCH_HOME_TEAM_ID,
+            squadRole: 'starter',
+            shirtNumber: 9,
+            captain: true,
+          },
+          {
+            matchPlayerId: MATCH_AWAY_PLAYER_ROW_ID,
+            playerId: MATCH_AWAY_PLAYER_ID,
+            teamId: MATCH_AWAY_TEAM_ID,
+            squadRole: 'starter',
+            shirtNumber: 10,
+            captain: true,
+          },
+        ],
+      })
+      expect(lineup).toHaveLength(2)
+      summary.match.lineup_rows = lineup.length
+
+      await matchService.transitionStatus(MATCH_ID, 'live')
+      const events = await matchService.recordEvent(MATCH_ID, {
+        eventId: MATCH_EVENT_ID,
+        eventType: 'goal',
+        period: '1H',
+        sequenceNumber: 1,
+        minute: 31,
+        teamId: MATCH_HOME_TEAM_ID,
+        playerId: MATCH_HOME_PLAYER_ID,
+        metadata: { staging_test: true, synthetic: true },
+      })
+      expect(events).toHaveLength(1)
+      summary.match.events = events.length
+
+      const observed = await matchService.finishMatch(MATCH_ID, { eventFeedComplete: true })
+      expect(observed).toMatchObject({ score90Home: 1, score90Away: 0 })
+      const official = await matchService.validateOfficialResult(MATCH_ID, {
+        officialScoreHome: 1,
+        officialScoreAway: 0,
+        decisionType: 'regulation',
+        winnerTeamId: MATCH_HOME_TEAM_ID,
+      })
+      expect(official).toEqual({ status: 'validated' })
+      summary.match.official_result = true
+
+      const beforeAppRead = await snapshotMatchRows(admin)
+      const appMatch = await getMatchDetail(MATCH_ID)
+      const appCompetition = await getCompetitionDetail(MATCH_COMPETITION_ID)
+      expect(appMatch?.match).toMatchObject({
+        id: MATCH_ID,
+        scoreHome: 1,
+        scoreAway: 0,
+        status: 'finished',
+      })
+      expect(appMatch?.events).toHaveLength(1)
+      expect(appMatch?.lineups).toHaveLength(2)
+      expect(appCompetition?.competition.entity_id).toBe(MATCH_COMPETITION_ID)
+      expect(appCompetition?.seasons[0]?.matches[0]?.id).toBe(MATCH_ID)
+      summary.app.read_match = true
+      summary.app.read_competition = true
+
+      const afterAppRead = await snapshotMatchRows(admin)
+      expect(afterAppRead).toEqual(beforeAppRead)
+      summary.app.write_free = true
+
+      const anonRead = await anon.from('matches').select('entity_id').eq('entity_id', MATCH_ID)
+      expect(anonRead.error).toBeNull()
+      expect(anonRead.data).toEqual([])
+      summary.rls.anon_read_blocked = true
+
+      const anonWrite = await anon
+        .from('entities')
+        .insert({ entity_id: ANON_WRITE_PROBE_ID, entity_type: 'match' })
+      expect(anonWrite.error).not.toBeNull()
+      const probeCheck = await admin
+        .from('entities')
+        .select('entity_id')
+        .eq('entity_id', ANON_WRITE_PROBE_ID)
+      expect(probeCheck.error).toBeNull()
+      expect(probeCheck.data).toEqual([])
+      summary.rls.anon_write_blocked = true
+
+      console.info(JSON.stringify({ component: 'staging-smoke', phase: 'verified', summary }))
+    } finally {
+      await cleanup(admin, ingestPlan)
+      await expectSmokeIdsAbsent(admin, ingestPlan)
+      summary.cleanup = true
+      console.info(
+        JSON.stringify({
+          component: 'staging-smoke',
+          phase: 'cleanup',
+          cleanup: 'complete',
+          staging_ref: STAGING_REF,
+        }),
+      )
+    }
+
+    expect(summary).toMatchObject({
+      ingest: { source_records: 1, observations: 5, idempotent: true },
+      ai: { source_backed: true, ambiguity_review: true },
+      match: { fixture: true, lineup_rows: 2, events: 1, official_result: true },
+      app: { read_match: true, read_competition: true, write_free: true },
+      rls: { anon_read_blocked: true, anon_write_blocked: true },
+      cleanup: true,
+    })
+  }, 90_000)
 })
