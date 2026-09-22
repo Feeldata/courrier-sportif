@@ -259,7 +259,9 @@ describe('AI V0.1 guardrails and assisted resolution', () => {
     })
   })
 
-  it('routes a linked-entity versus source-identity conflict to review without rewriting the link', async () => {
+  it(
+    'routes a linked-entity versus source-identity conflict to review without rewriting the link',
+    async () => {
     const entityA = '30000000-0000-4000-8000-000000000010'
     const entityB = '30000000-0000-4000-8000-000000000011'
     const item = observation({
@@ -299,7 +301,8 @@ describe('AI V0.1 guardrails and assisted resolution', () => {
         candidate_entity_ids: [entityB],
       },
     })
-  })
+    },
+  )
 
   it('defaults to apply false and does not mutate observations or validation issues', async () => {
     const item = observation({
