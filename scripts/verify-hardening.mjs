@@ -1,7 +1,11 @@
 import { access, readFile, readdir } from 'node:fs/promises'
 import path from 'node:path'
 
-const requiredPaths = ['package-lock.json', 'docs/staging-v0.1.md', 'src/integration/hardening.test.ts']
+const requiredPaths = [
+  'package-lock.json',
+  'docs/staging-v0.1.md',
+  'src/integration/hardening.test.ts',
+]
 for (const file of requiredPaths) await access(file)
 
 const packageJson = JSON.parse(await readFile('package.json', 'utf8'))
