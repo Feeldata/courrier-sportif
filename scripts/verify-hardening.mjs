@@ -15,6 +15,9 @@ if (!packageJson.scripts?.check?.includes('test:ingest:core')) {
 if (!packageJson.scripts?.check?.includes('verify:hardening')) {
   throw new Error('Full check must include verify:hardening')
 }
+if (!packageJson.scripts?.check?.includes('npm run typegen')) {
+  throw new Error('Full check must generate Next types before typecheck')
+}
 
 const ci = await readFile('.github/workflows/ci.yml', 'utf8')
 if (!ci.includes('npm ci') || ci.includes('npm install')) {
@@ -22,6 +25,11 @@ if (!ci.includes('npm ci') || ci.includes('npm install')) {
 }
 if (!ci.includes('NEXT_PUBLIC_APP_ENV: staging')) {
   throw new Error('CI must exercise the staging environment mode')
+}
+
+const gitignore = await readFile('.gitignore', 'utf8')
+if (!gitignore.includes('next-env.d.ts')) {
+  throw new Error('Generated next-env.d.ts must remain ignored')
 }
 
 const envExample = await readFile('.env.example', 'utf8')
