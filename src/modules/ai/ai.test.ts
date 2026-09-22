@@ -262,45 +262,47 @@ describe('AI V0.1 guardrails and assisted resolution', () => {
   it(
     'routes a linked-entity versus source-identity conflict to review without rewriting the link',
     async () => {
-    const entityA = '30000000-0000-4000-8000-000000000010'
-    const entityB = '30000000-0000-4000-8000-000000000011'
-    const item = observation({
-      id: '20000000-0000-4000-8000-000000000050',
-      confidence: 0.99,
-      rawValue: 'MTN Elite One',
-      normalizedValue: 'MTN Elite One',
-      subjectEntityId: entityA,
-    })
-    const repository = seededRepository([item])
-    repository.identityCandidates.set('competition:mtn elite one', [canonicalCandidate(entityB)])
+      const entityA = '30000000-0000-4000-8000-000000000010'
+      const entityB = '30000000-0000-4000-8000-000000000011'
+      const item = observation({
+        id: '20000000-0000-4000-8000-000000000050',
+        confidence: 0.99,
+        rawValue: 'MTN Elite One',
+        normalizedValue: 'MTN Elite One',
+        subjectEntityId: entityA,
+      })
+      const repository = seededRepository([item])
+      repository.identityCandidates.set('competition:mtn elite one', [
+        canonicalCandidate(entityB),
+      ])
 
-    const result = await new AiV01Service(repository).analyzeSourceRecord(RECORD_ID, {
-      apply: true,
-      now: NOW,
-    })
+      const result = await new AiV01Service(repository).analyzeSourceRecord(RECORD_ID, {
+        apply: true,
+        now: NOW,
+      })
 
-    expect(result.decisions[0]).toMatchObject({
-      decision: 'review_required',
-      reasonCode: 'AI_IDENTITY_LINK_IDENTITY_CONFLICT',
-      linkedEntityIds: [entityA],
-      candidates: [{ entityId: entityB }],
-      canonicalEntityId: null,
-    })
-    expect(repository.sourceObservations.get(item.observation_id)).toMatchObject({
-      subject_entity_id: entityA,
-      status: 'candidate',
-    })
+      expect(result.decisions[0]).toMatchObject({
+        decision: 'review_required',
+        reasonCode: 'AI_IDENTITY_LINK_IDENTITY_CONFLICT',
+        linkedEntityIds: [entityA],
+        candidates: [{ entityId: entityB }],
+        canonicalEntityId: null,
+      })
+      expect(repository.sourceObservations.get(item.observation_id)).toMatchObject({
+        subject_entity_id: entityA,
+        status: 'candidate',
+      })
 
-    const issue = [...repository.validationIssues.values()][0]
-    expect(issue).toMatchObject({
-      rule_code: 'AI_IDENTITY_LINK_IDENTITY_CONFLICT',
-      details: {
-        observation_ids: [item.observation_id],
-        identity_observation_ids: [item.observation_id],
-        linked_entity_ids: [entityA],
-        candidate_entity_ids: [entityB],
-      },
-    })
+      const issue = [...repository.validationIssues.values()][0]
+      expect(issue).toMatchObject({
+        rule_code: 'AI_IDENTITY_LINK_IDENTITY_CONFLICT',
+        details: {
+          observation_ids: [item.observation_id],
+          identity_observation_ids: [item.observation_id],
+          linked_entity_ids: [entityA],
+          candidate_entity_ids: [entityB],
+        },
+      })
     },
   )
 
