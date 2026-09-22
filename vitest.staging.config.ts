@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.join(root, 'src'),
+      'server-only': path.join(root, 'src/integration/server-only.stub.ts'),
     },
     conditions: ['react-server'],
   },
