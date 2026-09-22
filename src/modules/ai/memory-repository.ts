@@ -32,9 +32,7 @@ export class MemoryAiRepository implements AiRepository {
   }
 
   async findIdentityCandidates(entityType: AiEntityType, normalizedIdentity: string) {
-    return structuredClone(
-      this.identityCandidates.get(`${entityType}:${normalizedIdentity}`) ?? [],
-    )
+    return structuredClone(this.identityCandidates.get(`${entityType}:${normalizedIdentity}`) ?? [])
   }
 
   async linkObservations(observationIds: string[], entityId: string) {

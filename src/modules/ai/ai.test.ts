@@ -57,7 +57,9 @@ function observation(input: {
     field_name: input.fieldName ?? 'name',
     raw_value: input.rawValue ?? 'MTN Elite One',
     normalized_value:
-      input.normalizedValue === undefined ? (input.rawValue ?? 'MTN Elite One') : input.normalizedValue,
+      input.normalizedValue === undefined
+        ? (input.rawValue ?? 'MTN Elite One')
+        : input.normalizedValue,
     confidence: input.confidence,
     status: 'candidate',
     observed_at: NOW,

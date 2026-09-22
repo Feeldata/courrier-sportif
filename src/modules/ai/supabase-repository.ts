@@ -81,7 +81,9 @@ export class SupabaseAiRepository implements AiRepository {
           .select('entity_id,name,short_name')
         assertNoError(error, 'AI find competition identities')
         return (data ?? []).flatMap((row) => {
-          const names = [row.name, row.short_name].filter((value): value is string => Boolean(value))
+          const names = [row.name, row.short_name].filter((value): value is string =>
+            Boolean(value),
+          )
           return names.some((name) => normalizeIdentity(name) === normalizedIdentity)
             ? [candidate(row.entity_id, entityType, row.name, normalizedIdentity)]
             : []
@@ -93,8 +95,8 @@ export class SupabaseAiRepository implements AiRepository {
           .select('entity_id,official_name,short_name')
         assertNoError(error, 'AI find club identities')
         return (data ?? []).flatMap((row) => {
-          const names = [row.official_name, row.short_name].filter(
-            (value): value is string => Boolean(value),
+          const names = [row.official_name, row.short_name].filter((value): value is string =>
+            Boolean(value),
           )
           return names.some((name) => normalizeIdentity(name) === normalizedIdentity)
             ? [candidate(row.entity_id, entityType, row.official_name, normalizedIdentity)]
@@ -117,8 +119,8 @@ export class SupabaseAiRepository implements AiRepository {
         assertNoError(error, 'AI find player identities')
         return (data ?? []).flatMap((row) => {
           const fullName = [row.first_name, row.last_name].filter(Boolean).join(' ').trim()
-          const names = [row.display_name, fullName || null].filter(
-            (value): value is string => Boolean(value),
+          const names = [row.display_name, fullName || null].filter((value): value is string =>
+            Boolean(value),
           )
           return names.some((name) => normalizeIdentity(name) === normalizedIdentity)
             ? [candidate(row.entity_id, entityType, row.display_name, normalizedIdentity)]

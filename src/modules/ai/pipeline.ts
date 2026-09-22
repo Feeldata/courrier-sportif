@@ -61,8 +61,7 @@ function buildIssue(
 
   return {
     validation_issue_id: issueId,
-    entity_id:
-      decision.candidates.length === 1 ? decision.candidates[0]?.entityId ?? null : null,
+    entity_id: decision.candidates.length === 1 ? (decision.candidates[0]?.entityId ?? null) : null,
     subject_locator: {
       source_record_id: context.sourceRecord.source_record_id,
       subject_key: decision.subjectKey,
@@ -104,7 +103,7 @@ function reviewDecision(input: {
   }
 
   const candidates = uniqueCandidates(input.candidates ?? [])
-  const identityScore = candidates.length === 1 ? candidates[0]?.matchConfidence ?? 0 : 0
+  const identityScore = candidates.length === 1 ? (candidates[0]?.matchConfidence ?? 0) : 0
   const confidence = scoreConfidence({
     observationConfidence: observationConfidence(input.identityFacts),
     sourceConfidence: input.sourceScore,
@@ -162,7 +161,9 @@ export class AiV01Service {
 
       const linkedIds = [...new Set(group.map((fact) => fact.subjectEntityId).filter(Boolean))]
       const identityFacts = group.filter((fact) => fact.identityKey !== null)
-      const identityKeys = [...new Set(identityFacts.map((fact) => fact.identityKey).filter(Boolean))]
+      const identityKeys = [
+        ...new Set(identityFacts.map((fact) => fact.identityKey).filter(Boolean)),
+      ]
       const identityValue = identityFacts.map(factStringValue).find(Boolean) ?? null
 
       if (linkedIds.length > 1) {
