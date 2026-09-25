@@ -28,7 +28,7 @@ export interface FetchedSourceDocument {
 export interface SourceRecordDraft {
   sourceRecordId: string
   sourceId: string
-  recordType: 'webpage'
+  recordType: 'webpage' | 'pdf'
   url: string
   externalRef: string | null
   publishedAt: string | null

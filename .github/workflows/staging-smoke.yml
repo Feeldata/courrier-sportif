@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   smoke:
-    if: github.head_ref == 'codex/staging/v0.1'
+    if: github.head_ref == 'codex/staging/v0.1' || github.head_ref == 'codex/ingest/v0.2'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -31,11 +31,41 @@ jobs:
             echo "::error::SUPABASE_SECRET_KEY is not configured as a repository/environment secret."
             exit 1
           fi
+      - name: Provision INGEST V0.1 Elite One baseline
+        if: github.head_ref == 'codex/ingest/v0.2'
+        shell: bash
+        run: |
+          if [ "$NEXT_PUBLIC_APP_ENV" != "staging" ] ||
+             [ "$SUPABASE_PROJECT_REF" != "dlilhxaixpnabefqloxs" ] ||
+             [ "$NEXT_PUBLIC_SUPABASE_URL" != "https://dlilhxaixpnabefqloxs.supabase.co" ]; then
+            echo "::error::Refusing INGEST V0.1 baseline provisioning outside authorized staging."
+            exit 1
+          fi
+
+          set +e
+          npm run ingest:fecafoot -- --url https://fecafoot-officiel.com/actualite/32843/2026/01/13/ > /tmp/cs-ingest-v01-baseline.log 2>&1
+          status=$?
+          set -e
+
+          if grep -Fq -- "$SUPABASE_SECRET_KEY" /tmp/cs-ingest-v01-baseline.log; then
+            echo "::error::Secret value detected in INGEST V0.1 provisioning stdout/stderr."
+            rm -f /tmp/cs-ingest-v01-baseline.log
+            exit 1
+          fi
+
+          cat /tmp/cs-ingest-v01-baseline.log
+          rm -f /tmp/cs-ingest-v01-baseline.log
+          exit "$status"
       - name: Run staging smoke without leaking secret
         shell: bash
         run: |
+          case "$GITHUB_HEAD_REF" in
+            codex/staging/v0.1) smoke_script=smoke:staging ;;
+            codex/ingest/v0.2) smoke_script=smoke:staging:v02 ;;
+            *) echo "::error::Unauthorized staging smoke branch."; exit 1 ;;
+          esac
           set +e
-          npm run smoke:staging > /tmp/cs-staging-smoke.log 2>&1
+          npm run "$smoke_script" > /tmp/cs-staging-smoke.log 2>&1
           status=$?
           set -e
 
