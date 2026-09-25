@@ -22,6 +22,7 @@
     "test:ingest:core": "node --experimental-strip-types --test src/modules/ingest/*.node.test.ts",
     "ingest:fecafoot:dry-run": "node --experimental-strip-types src/modules/ingest/cli.ts --dry-run --fixture src/modules/ingest/fixtures/fecafoot-elite-one-launch-2026.json",
     "ingest:fecafoot": "node --experimental-strip-types src/modules/ingest/cli.ts",
+    "ingest:fecafoot:v02": "node --experimental-strip-types src/modules/ingest/cli-v02.ts",
     "test:app:core": "vitest run src/modules/app/read-model.test.ts src/components/app/components.test.tsx",
     "verify:app": "node scripts/verify-app.mjs",
     "test:ai:core": "vitest run src/modules/ai/ai.test.ts",
