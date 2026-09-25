@@ -20,7 +20,11 @@ function assertNoError(error: { message: string } | null, operation: string): vo
 }
 
 export class SupabaseIngestRepository implements IngestRepository {
-  constructor(private readonly client: SupabaseClient<Database>) {}
+  private readonly client: SupabaseClient<Database>
+
+  constructor(client: SupabaseClient<Database>) {
+    this.client = client
+  }
 
   async upsertSource(source: SourceDefinition): Promise<void> {
     const { error } = await this.client.from('sources').upsert({
