@@ -23,3 +23,11 @@ npm run ingest:fecafoot:v02 -- --url https://fecafoot-officiel.com/actualite/voi
 ```
 
 The connected command requires staging-only environment variables and a staging secret in the process environment. It prints IDs and evidence counts, never credentials.
+
+## Connected staging Gate A smoke
+
+On a same-repository pull request from `codex/ingest/v0.2`, the existing GitHub Actions staging workflow selects `npm run smoke:staging:v02`. It uses the repository's staging credentials and rejects any non-staging project before constructing the Supabase adapter. The V0.1 branch still runs its original smoke unchanged. The workflow checks the captured smoke output for the secret value before printing it.
+
+The V0.2 smoke applies the frozen official regulation extract twice. It verifies the existing competition is unchanged, exactly one `2026-2027` season uses deterministic ID `09301529-4080-5537-9311-31edb9d3a8dd`, and the same source record and two accepted observations point back to the FECAFOOT source. Global row counts for clubs, teams, season entries, matches, players, memberships, statistics, match events, match players, and results must stay unchanged. No transfer table or write path is used.
+
+This smoke intentionally **retains** the canonical Gate A season and its provenance in staging; they are not synthetic test rows. Expected final state: one season/entity for that ID, one source record for the regulation URL, and two accepted observations linked to the season; the FECAFOOT source row may already exist. Subsequent runs must reuse those IDs without adding rows. No 2026-2027 participant or fixture is created.

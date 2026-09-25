@@ -29,7 +29,8 @@
     "verify:hardening": "node scripts/verify-hardening.mjs",
     "test:integration": "vitest run src/integration/hardening.test.ts",
     "typegen": "next typegen",
-    "smoke:staging": "vitest run --config vitest.staging.config.ts"
+    "smoke:staging": "vitest run --config vitest.staging.config.ts",
+    "smoke:staging:v02": "vitest run --config vitest.staging-v02.config.ts"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
