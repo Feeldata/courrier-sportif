@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   smoke:
-    if: github.head_ref == 'codex/staging/v0.1' || github.head_ref == 'codex/ingest/v0.2'
+    if: github.head_ref == 'codex/staging/v0.1' || github.head_ref == 'codex/ingest/v0.2' || github.head_ref == 'codex/ingest/elite-one-2025-2026-backfill'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -57,6 +57,7 @@ jobs:
           rm -f /tmp/cs-ingest-v01-baseline.log
           exit "$status"
       - name: Run staging smoke without leaking secret
+        if: github.head_ref != 'codex/ingest/elite-one-2025-2026-backfill'
         shell: bash
         run: |
           case "$GITHUB_HEAD_REF" in
@@ -77,4 +78,22 @@ jobs:
 
           cat /tmp/cs-staging-smoke.log
           rm -f /tmp/cs-staging-smoke.log
+          exit "$status"
+      - name: Elite One 2025-2026 zero-write staging preflight
+        if: github.head_ref == 'codex/ingest/elite-one-2025-2026-backfill'
+        shell: bash
+        run: |
+          set +e
+          npm run ingest:fecafoot:v02 -- --backfill-2025-2026-preflight > /tmp/cs-backfill-preflight.log 2>&1
+          status=$?
+          set -e
+
+          if grep -Fq -- "$SUPABASE_SECRET_KEY" /tmp/cs-backfill-preflight.log; then
+            echo "::error::Secret value detected in staging preflight stdout/stderr."
+            rm -f /tmp/cs-backfill-preflight.log
+            exit 1
+          fi
+
+          cat /tmp/cs-backfill-preflight.log
+          rm -f /tmp/cs-backfill-preflight.log
           exit "$status"
