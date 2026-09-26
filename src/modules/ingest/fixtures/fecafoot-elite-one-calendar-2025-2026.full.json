@@ -1,0 +1,1464 @@
+{
+  "schema_version": "elite-one-2025-2026-frozen-calendar-v1",
+  "source_url": "https://fecafoot-officiel.com/wp-content/uploads/2026/01/CALENDRIER-ELITE-ONE-SAISON-25-26_.pdf",
+  "source_sha256": "dae60601e7971c23c0a9c249b0973f38a1e5b2fe5a2f69820ea1fd8048c75778",
+  "extractor": "pdfplumber-layout-reviewed-v1",
+  "fixtures": [
+    {
+      "source_fixture_number": 1,
+      "matchday": 1,
+      "home": "CANON SPORTIF",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-01-25",
+      "raw_date": "25/01/2026"
+    },
+    {
+      "source_fixture_number": 2,
+      "matchday": 1,
+      "home": "COTON SPORT",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-01-25",
+      "raw_date": "25/01/2026"
+    },
+    {
+      "source_fixture_number": 3,
+      "matchday": 1,
+      "home": "DYNAMO",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-01-25",
+      "raw_date": "25/01/2026"
+    },
+    {
+      "source_fixture_number": 4,
+      "matchday": 1,
+      "home": "GAZELLE FA",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-01-25",
+      "raw_date": "25/01/2026"
+    },
+    {
+      "source_fixture_number": 5,
+      "matchday": 1,
+      "home": "PANTHERE SPORTIVE",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-01-25",
+      "raw_date": "25/01/2026"
+    },
+    {
+      "source_fixture_number": 6,
+      "matchday": 1,
+      "home": "UNISPORT",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-01-24",
+      "raw_date": "24/01/2026"
+    },
+    {
+      "source_fixture_number": 7,
+      "matchday": 1,
+      "home": "VICTORIA UNITED",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-01-25",
+      "raw_date": "25/01/2026"
+    },
+    {
+      "source_fixture_number": 8,
+      "matchday": 2,
+      "home": "COTON SPORT",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-02-01",
+      "raw_date": "01/02/2026"
+    },
+    {
+      "source_fixture_number": 9,
+      "matchday": 2,
+      "home": "DYNAMO",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-02-01",
+      "raw_date": "01/02/2026"
+    },
+    {
+      "source_fixture_number": 10,
+      "matchday": 2,
+      "home": "CANON SPORTIF",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-02-01",
+      "raw_date": "01/02/2026"
+    },
+    {
+      "source_fixture_number": 11,
+      "matchday": 2,
+      "home": "AS FORTUNA",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-02-01",
+      "raw_date": "01/02/2026"
+    },
+    {
+      "source_fixture_number": 12,
+      "matchday": 2,
+      "home": "GAZELLE FA",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-02-01",
+      "raw_date": "01/02/2026"
+    },
+    {
+      "source_fixture_number": 13,
+      "matchday": 2,
+      "home": "PWD DE BAMENDA",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-02-01",
+      "raw_date": "01/02/2026"
+    },
+    {
+      "source_fixture_number": 14,
+      "matchday": 2,
+      "home": "UNISPORT",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-02-01",
+      "raw_date": "01/02/2026"
+    },
+    {
+      "source_fixture_number": 15,
+      "matchday": 3,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-02-04",
+      "raw_date": "04/02/2026"
+    },
+    {
+      "source_fixture_number": 16,
+      "matchday": 3,
+      "home": "COLOMBE",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-02-04",
+      "raw_date": "04/02/2026"
+    },
+    {
+      "source_fixture_number": 17,
+      "matchday": 3,
+      "home": "FAUVE AZUR",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-02-04",
+      "raw_date": "04/02/2026"
+    },
+    {
+      "source_fixture_number": 18,
+      "matchday": 3,
+      "home": "PWD DE BAMENDA",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-02-04",
+      "raw_date": "04/02/2026"
+    },
+    {
+      "source_fixture_number": 19,
+      "matchday": 3,
+      "home": "PANTHERE SPORTIVE",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-02-04",
+      "raw_date": "04/02/2026"
+    },
+    {
+      "source_fixture_number": 20,
+      "matchday": 3,
+      "home": "STADE RENARD",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-02-04",
+      "raw_date": "04/02/2026"
+    },
+    {
+      "source_fixture_number": 21,
+      "matchday": 3,
+      "home": "VICTORIA UNITED",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-02-04",
+      "raw_date": "04/02/2026"
+    },
+    {
+      "source_fixture_number": 22,
+      "matchday": 4,
+      "home": "AIGLE DU MOUNGO",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-02-08",
+      "raw_date": "08/02/2026"
+    },
+    {
+      "source_fixture_number": 23,
+      "matchday": 4,
+      "home": "COLOMBE",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-02-08",
+      "raw_date": "08/02/2026"
+    },
+    {
+      "source_fixture_number": 24,
+      "matchday": 4,
+      "home": "DYNAMO",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-02-08",
+      "raw_date": "08/02/2026"
+    },
+    {
+      "source_fixture_number": 25,
+      "matchday": 4,
+      "home": "FAUVE AZUR",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-02-08",
+      "raw_date": "08/02/2026"
+    },
+    {
+      "source_fixture_number": 26,
+      "matchday": 4,
+      "home": "PANTHERE SPORTIVE",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-02-08",
+      "raw_date": "08/02/2026"
+    },
+    {
+      "source_fixture_number": 27,
+      "matchday": 4,
+      "home": "STADE RENARD",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-02-08",
+      "raw_date": "08/02/2026"
+    },
+    {
+      "source_fixture_number": 28,
+      "matchday": 4,
+      "home": "UNISPORT",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-02-08",
+      "raw_date": "08/02/2026"
+    },
+    {
+      "source_fixture_number": 29,
+      "matchday": 5,
+      "home": "COLOMBE",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-02-15",
+      "raw_date": "15/02/2026"
+    },
+    {
+      "source_fixture_number": 30,
+      "matchday": 5,
+      "home": "CANON SPORTIF",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-02-15",
+      "raw_date": "15/02/2026"
+    },
+    {
+      "source_fixture_number": 31,
+      "matchday": 5,
+      "home": "COTON SPORT",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-02-15",
+      "raw_date": "15/02/2026"
+    },
+    {
+      "source_fixture_number": 32,
+      "matchday": 5,
+      "home": "GAZELLE FA",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-02-15",
+      "raw_date": "15/02/2026"
+    },
+    {
+      "source_fixture_number": 33,
+      "matchday": 5,
+      "home": "PWD DE BAMENDA",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-02-15",
+      "raw_date": "15/02/2026"
+    },
+    {
+      "source_fixture_number": 34,
+      "matchday": 5,
+      "home": "STADE RENARD",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-02-15",
+      "raw_date": "15/02/2026"
+    },
+    {
+      "source_fixture_number": 35,
+      "matchday": 5,
+      "home": "VICTORIA UNITED",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-02-15",
+      "raw_date": "15/02/2026"
+    },
+    {
+      "source_fixture_number": 36,
+      "matchday": 6,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-02-22",
+      "raw_date": "22/02/2026"
+    },
+    {
+      "source_fixture_number": 37,
+      "matchday": 6,
+      "home": "AIGLE DU MOUNGO",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-02-22",
+      "raw_date": "22/02/2026"
+    },
+    {
+      "source_fixture_number": 38,
+      "matchday": 6,
+      "home": "PANTHERE SPORTIVE",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-02-22",
+      "raw_date": "22/02/2026"
+    },
+    {
+      "source_fixture_number": 39,
+      "matchday": 6,
+      "home": "COTON SPORT",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-02-22",
+      "raw_date": "22/02/2026"
+    },
+    {
+      "source_fixture_number": 40,
+      "matchday": 6,
+      "home": "DYNAMO",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-02-22",
+      "raw_date": "22/02/2026"
+    },
+    {
+      "source_fixture_number": 41,
+      "matchday": 6,
+      "home": "GAZELLE FA",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-02-22",
+      "raw_date": "22/02/2026"
+    },
+    {
+      "source_fixture_number": 42,
+      "matchday": 6,
+      "home": "UNISPORT",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-02-22",
+      "raw_date": "22/02/2026"
+    },
+    {
+      "source_fixture_number": 43,
+      "matchday": 7,
+      "home": "AIGLE DU MOUNGO",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-02-25",
+      "raw_date": "25/02/2026"
+    },
+    {
+      "source_fixture_number": 44,
+      "matchday": 7,
+      "home": "CANON SPORTIF",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-02-25",
+      "raw_date": "25/02/2026"
+    },
+    {
+      "source_fixture_number": 45,
+      "matchday": 7,
+      "home": "COLOMBE",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-02-25",
+      "raw_date": "25/02/2026"
+    },
+    {
+      "source_fixture_number": 46,
+      "matchday": 7,
+      "home": "FAUVE AZUR",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-02-25",
+      "raw_date": "25/02/2026"
+    },
+    {
+      "source_fixture_number": 47,
+      "matchday": 7,
+      "home": "PANTHERE SPORTIVE",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-02-25",
+      "raw_date": "25/02/2026"
+    },
+    {
+      "source_fixture_number": 48,
+      "matchday": 7,
+      "home": "UNISPORT",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-02-25",
+      "raw_date": "25/02/2026"
+    },
+    {
+      "source_fixture_number": 49,
+      "matchday": 7,
+      "home": "VICTORIA UNITED",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-02-25",
+      "raw_date": "25/02/2026"
+    },
+    {
+      "source_fixture_number": 50,
+      "matchday": 8,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-03-01",
+      "raw_date": "01/03/2026"
+    },
+    {
+      "source_fixture_number": 51,
+      "matchday": 8,
+      "home": "COLOMBE",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-03-01",
+      "raw_date": "01/03/2026"
+    },
+    {
+      "source_fixture_number": 52,
+      "matchday": 8,
+      "home": "DYNAMO",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-03-01",
+      "raw_date": "01/03/2026"
+    },
+    {
+      "source_fixture_number": 53,
+      "matchday": 8,
+      "home": "AS FORTUNA",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-03-01",
+      "raw_date": "01/03/2026"
+    },
+    {
+      "source_fixture_number": 54,
+      "matchday": 8,
+      "home": "PWD DE BAMENDA",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-03-01",
+      "raw_date": "01/03/2026"
+    },
+    {
+      "source_fixture_number": 55,
+      "matchday": 8,
+      "home": "PANTHERE SPORTIVE",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-03-01",
+      "raw_date": "01/03/2026"
+    },
+    {
+      "source_fixture_number": 56,
+      "matchday": 8,
+      "home": "VICTORIA UNITED",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-03-01",
+      "raw_date": "01/03/2026"
+    },
+    {
+      "source_fixture_number": 57,
+      "matchday": 9,
+      "home": "AIGLE DU MOUNGO",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-03-08",
+      "raw_date": "08/03/2026"
+    },
+    {
+      "source_fixture_number": 58,
+      "matchday": 9,
+      "home": "CANON SPORTIF",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-03-08",
+      "raw_date": "08/03/2026"
+    },
+    {
+      "source_fixture_number": 59,
+      "matchday": 9,
+      "home": "UNISPORT",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-03-08",
+      "raw_date": "08/03/2026"
+    },
+    {
+      "source_fixture_number": 60,
+      "matchday": 9,
+      "home": "COTON SPORT",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-03-08",
+      "raw_date": "08/03/2026"
+    },
+    {
+      "source_fixture_number": 61,
+      "matchday": 9,
+      "home": "GAZELLE FA",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-03-08",
+      "raw_date": "08/03/2026"
+    },
+    {
+      "source_fixture_number": 62,
+      "matchday": 9,
+      "home": "STADE RENARD",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-03-08",
+      "raw_date": "08/03/2026"
+    },
+    {
+      "source_fixture_number": 63,
+      "matchday": 9,
+      "home": "FAUVE AZUR",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-03-08",
+      "raw_date": "08/03/2026"
+    },
+    {
+      "source_fixture_number": 64,
+      "matchday": 10,
+      "home": "AIGLE DU MOUNGO",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-03-11",
+      "raw_date": "11/03/2026"
+    },
+    {
+      "source_fixture_number": 65,
+      "matchday": 10,
+      "home": "COLOMBE",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-03-11",
+      "raw_date": "11/03/2026"
+    },
+    {
+      "source_fixture_number": 66,
+      "matchday": 10,
+      "home": "COTON SPORT",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-03-11",
+      "raw_date": "11/03/2026"
+    },
+    {
+      "source_fixture_number": 67,
+      "matchday": 10,
+      "home": "GAZELLE FA",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-03-11",
+      "raw_date": "11/03/2026"
+    },
+    {
+      "source_fixture_number": 68,
+      "matchday": 10,
+      "home": "PWD DE BAMENDA",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-03-11",
+      "raw_date": "11/03/2026"
+    },
+    {
+      "source_fixture_number": 69,
+      "matchday": 10,
+      "home": "VICTORIA UNITED",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-03-11",
+      "raw_date": "11/03/2026"
+    },
+    {
+      "source_fixture_number": 70,
+      "matchday": 10,
+      "home": "UNISPORT",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-03-11",
+      "raw_date": "11/03/2026"
+    },
+    {
+      "source_fixture_number": 71,
+      "matchday": 11,
+      "home": "CANON SPORTIF",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-03-15",
+      "raw_date": "15/03/2026"
+    },
+    {
+      "source_fixture_number": 72,
+      "matchday": 11,
+      "home": "COLOMBE",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-03-15",
+      "raw_date": "15/03/2026"
+    },
+    {
+      "source_fixture_number": 73,
+      "matchday": 11,
+      "home": "FAUVE AZUR",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-03-15",
+      "raw_date": "15/03/2026"
+    },
+    {
+      "source_fixture_number": 74,
+      "matchday": 11,
+      "home": "PWD DE BAMENDA",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-03-15",
+      "raw_date": "15/03/2026"
+    },
+    {
+      "source_fixture_number": 75,
+      "matchday": 11,
+      "home": "PANTHERE SPORTIVE",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-03-15",
+      "raw_date": "15/03/2026"
+    },
+    {
+      "source_fixture_number": 76,
+      "matchday": 11,
+      "home": "STADE RENARD",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-03-15",
+      "raw_date": "15/03/2026"
+    },
+    {
+      "source_fixture_number": 77,
+      "matchday": 11,
+      "home": "UNISPORT",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-03-15",
+      "raw_date": "15/03/2026"
+    },
+    {
+      "source_fixture_number": 78,
+      "matchday": 12,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-03-22",
+      "raw_date": "22/03/2026"
+    },
+    {
+      "source_fixture_number": 79,
+      "matchday": 12,
+      "home": "AIGLE DU MOUNGO",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-03-22",
+      "raw_date": "22/03/2026"
+    },
+    {
+      "source_fixture_number": 80,
+      "matchday": 12,
+      "home": "CANON SPORTIF",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-03-22",
+      "raw_date": "22/03/2026"
+    },
+    {
+      "source_fixture_number": 81,
+      "matchday": 12,
+      "home": "DYNAMO",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-03-22",
+      "raw_date": "22/03/2026"
+    },
+    {
+      "source_fixture_number": 82,
+      "matchday": 12,
+      "home": "AS FORTUNA",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-03-22",
+      "raw_date": "22/03/2026"
+    },
+    {
+      "source_fixture_number": 83,
+      "matchday": 12,
+      "home": "UNISPORT",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-03-22",
+      "raw_date": "22/03/2026"
+    },
+    {
+      "source_fixture_number": 84,
+      "matchday": 12,
+      "home": "VICTORIA UNITED",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-03-22",
+      "raw_date": "22/03/2026"
+    },
+    {
+      "source_fixture_number": 85,
+      "matchday": 13,
+      "home": "VICTORIA UNITED",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-03-29",
+      "raw_date": "29/03/2026"
+    },
+    {
+      "source_fixture_number": 86,
+      "matchday": 13,
+      "home": "COTON SPORT",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-03-29",
+      "raw_date": "29/03/2026"
+    },
+    {
+      "source_fixture_number": 87,
+      "matchday": 13,
+      "home": "FAUVE AZUR",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-03-29",
+      "raw_date": "29/03/2026"
+    },
+    {
+      "source_fixture_number": 88,
+      "matchday": 13,
+      "home": "PWD DE BAMENDA",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-03-29",
+      "raw_date": "29/03/2026"
+    },
+    {
+      "source_fixture_number": 89,
+      "matchday": 13,
+      "home": "PANTHERE SPORTIVE",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-03-29",
+      "raw_date": "29/03/2026"
+    },
+    {
+      "source_fixture_number": 90,
+      "matchday": 13,
+      "home": "STADE RENARD",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-03-29",
+      "raw_date": "29/03/2026"
+    },
+    {
+      "source_fixture_number": 91,
+      "matchday": 13,
+      "home": "DYNAMO",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-03-29",
+      "raw_date": "29/03/2026"
+    },
+    {
+      "source_fixture_number": 92,
+      "matchday": 14,
+      "home": "STADE RENARD",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-04-08",
+      "raw_date": "08/04/2026"
+    },
+    {
+      "source_fixture_number": 93,
+      "matchday": 14,
+      "home": "COLOMBE",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-04-08",
+      "raw_date": "08/04/2026"
+    },
+    {
+      "source_fixture_number": 94,
+      "matchday": 14,
+      "home": "AS FORTUNA",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-04-08",
+      "raw_date": "08/04/2026"
+    },
+    {
+      "source_fixture_number": 95,
+      "matchday": 14,
+      "home": "AIGLE DU MOUNGO",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-04-08",
+      "raw_date": "08/04/2026"
+    },
+    {
+      "source_fixture_number": 96,
+      "matchday": 14,
+      "home": "FAUVE AZUR",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-04-08",
+      "raw_date": "08/04/2026"
+    },
+    {
+      "source_fixture_number": 97,
+      "matchday": 14,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-04-08",
+      "raw_date": "08/04/2026"
+    },
+    {
+      "source_fixture_number": 98,
+      "matchday": 14,
+      "home": "PWD DE BAMENDA",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-04-08",
+      "raw_date": "08/04/2026"
+    },
+    {
+      "source_fixture_number": 99,
+      "matchday": 15,
+      "home": "AIGLE DU MOUNGO",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-04-12",
+      "raw_date": "12/04/2026"
+    },
+    {
+      "source_fixture_number": 100,
+      "matchday": 15,
+      "home": "VICTORIA UNITED",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-04-12",
+      "raw_date": "12/04/2026"
+    },
+    {
+      "source_fixture_number": 101,
+      "matchday": 15,
+      "home": "FAUVE AZUR",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-04-12",
+      "raw_date": "12/04/2026"
+    },
+    {
+      "source_fixture_number": 102,
+      "matchday": 15,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-04-12",
+      "raw_date": "12/04/2026"
+    },
+    {
+      "source_fixture_number": 103,
+      "matchday": 15,
+      "home": "COLOMBE",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-04-12",
+      "raw_date": "12/04/2026"
+    },
+    {
+      "source_fixture_number": 104,
+      "matchday": 15,
+      "home": "STADE RENARD",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-04-12",
+      "raw_date": "12/04/2026"
+    },
+    {
+      "source_fixture_number": 105,
+      "matchday": 15,
+      "home": "PANTHERE SPORTIVE",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-04-12",
+      "raw_date": "12/04/2026"
+    },
+    {
+      "source_fixture_number": 106,
+      "matchday": 16,
+      "home": "CANON SPORTIF",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-04-19",
+      "raw_date": "19/04/2026"
+    },
+    {
+      "source_fixture_number": 107,
+      "matchday": 16,
+      "home": "DYNAMO",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-04-19",
+      "raw_date": "19/04/2026"
+    },
+    {
+      "source_fixture_number": 108,
+      "matchday": 16,
+      "home": "UNISPORT",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-04-19",
+      "raw_date": "19/04/2026"
+    },
+    {
+      "source_fixture_number": 109,
+      "matchday": 16,
+      "home": "GAZELLE FA",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-04-19",
+      "raw_date": "19/04/2026"
+    },
+    {
+      "source_fixture_number": 110,
+      "matchday": 16,
+      "home": "AS FORTUNA",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-04-19",
+      "raw_date": "19/04/2026"
+    },
+    {
+      "source_fixture_number": 111,
+      "matchday": 16,
+      "home": "AIGLE DU MOUNGO",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-04-19",
+      "raw_date": "19/04/2026"
+    },
+    {
+      "source_fixture_number": 112,
+      "matchday": 16,
+      "home": "COTON SPORT",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-04-19",
+      "raw_date": "19/04/2026"
+    },
+    {
+      "source_fixture_number": 113,
+      "matchday": 17,
+      "home": "FAUVE AZUR",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-04-22",
+      "raw_date": "22/04/2026"
+    },
+    {
+      "source_fixture_number": 114,
+      "matchday": 17,
+      "home": "STADE RENARD",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-04-22",
+      "raw_date": "22/04/2026"
+    },
+    {
+      "source_fixture_number": 115,
+      "matchday": 17,
+      "home": "AIGLE DU MOUNGO",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-04-22",
+      "raw_date": "22/04/2026"
+    },
+    {
+      "source_fixture_number": 116,
+      "matchday": 17,
+      "home": "UNISPORT",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-04-22",
+      "raw_date": "22/04/2026"
+    },
+    {
+      "source_fixture_number": 117,
+      "matchday": 17,
+      "home": "COTON SPORT",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-04-22",
+      "raw_date": "22/04/2026"
+    },
+    {
+      "source_fixture_number": 118,
+      "matchday": 17,
+      "home": "CANON SPORTIF",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-04-22",
+      "raw_date": "22/04/2026"
+    },
+    {
+      "source_fixture_number": 119,
+      "matchday": 17,
+      "home": "GAZELLE FA",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-04-22",
+      "raw_date": "22/04/2026"
+    },
+    {
+      "source_fixture_number": 120,
+      "matchday": 18,
+      "home": "AIGLE DU MOUNGO",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-05-26",
+      "raw_date": "26/05/2026"
+    },
+    {
+      "source_fixture_number": 121,
+      "matchday": 18,
+      "home": "UNISPORT",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-05-26",
+      "raw_date": "26/05/2026"
+    },
+    {
+      "source_fixture_number": 122,
+      "matchday": 18,
+      "home": "FAUVE AZUR",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-05-26",
+      "raw_date": "26/05/2026"
+    },
+    {
+      "source_fixture_number": 123,
+      "matchday": 18,
+      "home": "AS FORTUNA",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-05-26",
+      "raw_date": "26/05/2026"
+    },
+    {
+      "source_fixture_number": 124,
+      "matchday": 18,
+      "home": "PANTHERE SPORTIVE",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-05-26",
+      "raw_date": "26/05/2026"
+    },
+    {
+      "source_fixture_number": 125,
+      "matchday": 18,
+      "home": "DYNAMO",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-05-26",
+      "raw_date": "26/05/2026"
+    },
+    {
+      "source_fixture_number": 126,
+      "matchday": 18,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-05-26",
+      "raw_date": "26/05/2026"
+    },
+    {
+      "source_fixture_number": 127,
+      "matchday": 19,
+      "home": "STADE RENARD",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-05-03",
+      "raw_date": "03/05/2026"
+    },
+    {
+      "source_fixture_number": 128,
+      "matchday": 19,
+      "home": "VICTORIA UNITED",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-05-03",
+      "raw_date": "03/05/2026"
+    },
+    {
+      "source_fixture_number": 129,
+      "matchday": 19,
+      "home": "COLOMBE",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-05-03",
+      "raw_date": "03/05/2026"
+    },
+    {
+      "source_fixture_number": 130,
+      "matchday": 19,
+      "home": "AS FORTUNA",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-05-03",
+      "raw_date": "03/05/2026"
+    },
+    {
+      "source_fixture_number": 131,
+      "matchday": 19,
+      "home": "CANON SPORTIF",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-05-03",
+      "raw_date": "03/05/2026"
+    },
+    {
+      "source_fixture_number": 132,
+      "matchday": 19,
+      "home": "FAUVE AZUR",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-05-03",
+      "raw_date": "03/05/2026"
+    },
+    {
+      "source_fixture_number": 133,
+      "matchday": 19,
+      "home": "PWD DE BAMENDA",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-05-03",
+      "raw_date": "03/05/2026"
+    },
+    {
+      "source_fixture_number": 134,
+      "matchday": 20,
+      "home": "CANON SPORTIF",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-05-10",
+      "raw_date": "10/05/2026"
+    },
+    {
+      "source_fixture_number": 135,
+      "matchday": 20,
+      "home": "AS FORTUNA",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-05-10",
+      "raw_date": "10/05/2026"
+    },
+    {
+      "source_fixture_number": 136,
+      "matchday": 20,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-05-10",
+      "raw_date": "10/05/2026"
+    },
+    {
+      "source_fixture_number": 137,
+      "matchday": 20,
+      "home": "PWD DE BAMENDA",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-05-10",
+      "raw_date": "10/05/2026"
+    },
+    {
+      "source_fixture_number": 138,
+      "matchday": 20,
+      "home": "GAZELLE FA",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-05-10",
+      "raw_date": "10/05/2026"
+    },
+    {
+      "source_fixture_number": 139,
+      "matchday": 20,
+      "home": "COTON SPORT",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-05-10",
+      "raw_date": "10/05/2026"
+    },
+    {
+      "source_fixture_number": 140,
+      "matchday": 20,
+      "home": "VICTORIA UNITED",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-05-10",
+      "raw_date": "10/05/2026"
+    },
+    {
+      "source_fixture_number": 141,
+      "matchday": 21,
+      "home": "AS FORTUNA",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-05-13",
+      "raw_date": "13/05/2026"
+    },
+    {
+      "source_fixture_number": 142,
+      "matchday": 21,
+      "home": "VICTORIA UNITED",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-05-13",
+      "raw_date": "13/05/2026"
+    },
+    {
+      "source_fixture_number": 143,
+      "matchday": 21,
+      "home": "DYNAMO",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-05-13",
+      "raw_date": "13/05/2026"
+    },
+    {
+      "source_fixture_number": 144,
+      "matchday": 21,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-05-13",
+      "raw_date": "13/05/2026"
+    },
+    {
+      "source_fixture_number": 145,
+      "matchday": 21,
+      "home": "COTON SPORT",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-05-13",
+      "raw_date": "13/05/2026"
+    },
+    {
+      "source_fixture_number": 146,
+      "matchday": 21,
+      "home": "GAZELLE FA",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-05-13",
+      "raw_date": "13/05/2026"
+    },
+    {
+      "source_fixture_number": 147,
+      "matchday": 21,
+      "home": "AIGLE DU MOUNGO",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-05-13",
+      "raw_date": "13/05/2026"
+    },
+    {
+      "source_fixture_number": 148,
+      "matchday": 22,
+      "home": "AS FORTUNA",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-05-17",
+      "raw_date": "17/05/2026"
+    },
+    {
+      "source_fixture_number": 149,
+      "matchday": 22,
+      "home": "PWD DE BAMENDA",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-05-17",
+      "raw_date": "17/05/2026"
+    },
+    {
+      "source_fixture_number": 150,
+      "matchday": 22,
+      "home": "COLOMBE",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-05-17",
+      "raw_date": "17/05/2026"
+    },
+    {
+      "source_fixture_number": 151,
+      "matchday": 22,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-05-17",
+      "raw_date": "17/05/2026"
+    },
+    {
+      "source_fixture_number": 152,
+      "matchday": 22,
+      "home": "DYNAMO",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-05-17",
+      "raw_date": "17/05/2026"
+    },
+    {
+      "source_fixture_number": 153,
+      "matchday": 22,
+      "home": "PANTHERE SPORTIVE",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-05-17",
+      "raw_date": "17/05/2026"
+    },
+    {
+      "source_fixture_number": 154,
+      "matchday": 22,
+      "home": "VICTORIA UNITED",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-05-17",
+      "raw_date": "17/05/2026"
+    },
+    {
+      "source_fixture_number": 155,
+      "matchday": 23,
+      "home": "FAUVE AZUR",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-05-24",
+      "raw_date": "24/05/2026"
+    },
+    {
+      "source_fixture_number": 156,
+      "matchday": 23,
+      "home": "CANON SPORTIF",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-05-24",
+      "raw_date": "24/05/2026"
+    },
+    {
+      "source_fixture_number": 157,
+      "matchday": 23,
+      "home": "DYNAMO",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-05-24",
+      "raw_date": "24/05/2026"
+    },
+    {
+      "source_fixture_number": 158,
+      "matchday": 23,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "GAZELLE FA",
+      "scheduled_date": "2026-05-24",
+      "raw_date": "24/05/2026"
+    },
+    {
+      "source_fixture_number": 159,
+      "matchday": 23,
+      "home": "AS FORTUNA",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-05-24",
+      "raw_date": "24/05/2026"
+    },
+    {
+      "source_fixture_number": 160,
+      "matchday": 23,
+      "home": "PANTHERE SPORTIVE",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-05-24",
+      "raw_date": "24/05/2026"
+    },
+    {
+      "source_fixture_number": 161,
+      "matchday": 23,
+      "home": "STADE RENARD",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-05-24",
+      "raw_date": "24/05/2026"
+    },
+    {
+      "source_fixture_number": 162,
+      "matchday": 24,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-05-31",
+      "raw_date": "31/05/2026"
+    },
+    {
+      "source_fixture_number": 163,
+      "matchday": 24,
+      "home": "COTON SPORT",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-05-31",
+      "raw_date": "31/05/2026"
+    },
+    {
+      "source_fixture_number": 164,
+      "matchday": 24,
+      "home": "PWD DE BAMENDA",
+      "away": "COLOMBE",
+      "scheduled_date": "2026-05-31",
+      "raw_date": "31/05/2026"
+    },
+    {
+      "source_fixture_number": 165,
+      "matchday": 24,
+      "home": "STADE RENARD",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-05-31",
+      "raw_date": "31/05/2026"
+    },
+    {
+      "source_fixture_number": 166,
+      "matchday": 24,
+      "home": "DYNAMO",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-05-31",
+      "raw_date": "31/05/2026"
+    },
+    {
+      "source_fixture_number": 167,
+      "matchday": 24,
+      "home": "GAZELLE FA",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-05-31",
+      "raw_date": "31/05/2026"
+    },
+    {
+      "source_fixture_number": 168,
+      "matchday": 24,
+      "home": "AS FORTUNA",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-05-31",
+      "raw_date": "31/05/2026"
+    },
+    {
+      "source_fixture_number": 169,
+      "matchday": 25,
+      "home": "COLOMBE",
+      "away": "AIGLE DE LA MENOUA",
+      "scheduled_date": "2026-06-03",
+      "raw_date": "03/06/2026"
+    },
+    {
+      "source_fixture_number": 170,
+      "matchday": 25,
+      "home": "PANTHERE SPORTIVE",
+      "away": "AIGLE DU MOUNGO",
+      "scheduled_date": "2026-06-03",
+      "raw_date": "03/06/2026"
+    },
+    {
+      "source_fixture_number": 171,
+      "matchday": 25,
+      "home": "GAZELLE FA",
+      "away": "CANON SPORTIF",
+      "scheduled_date": "2026-06-03",
+      "raw_date": "03/06/2026"
+    },
+    {
+      "source_fixture_number": 172,
+      "matchday": 25,
+      "home": "PWD DE BAMENDA",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-06-03",
+      "raw_date": "03/06/2026"
+    },
+    {
+      "source_fixture_number": 173,
+      "matchday": 25,
+      "home": "FAUVE AZUR",
+      "away": "AS FORTUNA",
+      "scheduled_date": "2026-06-03",
+      "raw_date": "03/06/2026"
+    },
+    {
+      "source_fixture_number": 174,
+      "matchday": 25,
+      "home": "COTON SPORT",
+      "away": "UNISPORT",
+      "scheduled_date": "2026-06-03",
+      "raw_date": "03/06/2026"
+    },
+    {
+      "source_fixture_number": 175,
+      "matchday": 25,
+      "home": "STADE RENARD",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-06-03",
+      "raw_date": "03/06/2026"
+    },
+    {
+      "source_fixture_number": 176,
+      "matchday": 26,
+      "home": "CANON SPORTIF",
+      "away": "VICTORIA UNITED",
+      "scheduled_date": "2026-06-10",
+      "raw_date": "10/06/2026"
+    },
+    {
+      "source_fixture_number": 177,
+      "matchday": 26,
+      "home": "GAZELLE FA",
+      "away": "COTON SPORT",
+      "scheduled_date": "2026-06-10",
+      "raw_date": "10/06/2026"
+    },
+    {
+      "source_fixture_number": 178,
+      "matchday": 26,
+      "home": "COLOMBE",
+      "away": "FAUVE AZUR",
+      "scheduled_date": "2026-06-10",
+      "raw_date": "10/06/2026"
+    },
+    {
+      "source_fixture_number": 179,
+      "matchday": 26,
+      "home": "AIGLE DU MOUNGO",
+      "away": "PWD DE BAMENDA",
+      "scheduled_date": "2026-06-10",
+      "raw_date": "10/06/2026"
+    },
+    {
+      "source_fixture_number": 180,
+      "matchday": 26,
+      "home": "AIGLE DE LA MENOUA",
+      "away": "PANTHERE SPORTIVE",
+      "scheduled_date": "2026-06-10",
+      "raw_date": "10/06/2026"
+    },
+    {
+      "source_fixture_number": 181,
+      "matchday": 26,
+      "home": "AS FORTUNA",
+      "away": "STADE RENARD",
+      "scheduled_date": "2026-06-10",
+      "raw_date": "10/06/2026"
+    },
+    {
+      "source_fixture_number": 182,
+      "matchday": 26,
+      "home": "UNISPORT",
+      "away": "DYNAMO",
+      "scheduled_date": "2026-06-10",
+      "raw_date": "10/06/2026"
+    }
+  ]
+}

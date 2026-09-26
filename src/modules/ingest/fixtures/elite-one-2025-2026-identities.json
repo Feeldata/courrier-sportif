@@ -1,0 +1,121 @@
+{
+  "season_id": "0f8a8cd9-f265-5943-adcb-fa758823d96c",
+  "competition_id": "c92a7b55-4d4c-5c68-be3f-b333dbadd405",
+  "approval": "https://github.com/Feeldata/courrier-sportif/issues/7#issuecomment-5838269968",
+  "participant_source_url": "https://fecafoot-officiel.com/wp-content/uploads/2026/02/LISTE-DEFINITIVES-DES-JOUEURS-ET-ENCADREURS-DES-CLUBS-DU-CHAMPIONNAT-MTN-ELITE-ONE-HABILITE-A-PRENDRE-PART-AU-CHAMPIONNAT-SAISON-2025.2026.pdf",
+  "participant_source_sha256": "178ba99d56226fbe3203d5ae2d55185716c293ef649bc49e07c380ab0eabaae6",
+  "identities": [
+    {
+      "name": "Canon Sportif de Yaoundé",
+      "club_id": "b9a8bf10-a1c3-5b66-94de-9f309e0e1aa9",
+      "team_id": "d04e91b5-707e-559a-b6d2-394d5ed7a09a",
+      "source_header": "Canon Sportif de Yaoundé",
+      "calendar_alias": "CANON SPORTIF",
+      "aliases": ["Canon Sportive de Yaoundé", "Canon de Yaoundé"]
+    },
+    {
+      "name": "Coton Sport de Garoua",
+      "club_id": "8da4e602-300e-5d1b-b7f6-defb59d3f346",
+      "team_id": "8f3c6c1e-7609-580c-bcab-146d552fd3e7",
+      "source_header": "Coton Sport de Garoua",
+      "calendar_alias": "COTON SPORT",
+      "aliases": []
+    },
+    {
+      "name": "Colombe Sportive du Dja et Lobo",
+      "club_id": "73dc7322-4922-54dd-a803-eaecae2285b7",
+      "team_id": "c0ad0c6e-ae40-50e1-b9fc-e761db475e43",
+      "source_header": "Colombe Sportive du Dja et Lobo",
+      "calendar_alias": "COLOMBE",
+      "aliases": ["Colombe du Dja et Lobo", "Colombe Sportive du Dja et Lobe"]
+    },
+    {
+      "name": "Dynamo de Douala",
+      "club_id": "ea939b2c-a330-51ea-b3ca-44c7f80da342",
+      "team_id": "428cbf1f-0e5e-5e7a-9122-65f6c560051f",
+      "source_header": "Dynamo Football Club de Douala",
+      "calendar_alias": "DYNAMO",
+      "aliases": ["Dynamo FC de Douala", "Dynamo Club de Douala"]
+    },
+    {
+      "name": "AS Fortuna de Mfou",
+      "club_id": "4aad42d8-570d-5f04-b0df-2631c366c94a",
+      "team_id": "9fba483b-cf80-567c-a0a9-589c9416b4e8",
+      "source_header": "AS Fortuna de Mfou",
+      "calendar_alias": "AS FORTUNA",
+      "aliases": []
+    },
+    {
+      "name": "Gazelle FA de Garoua",
+      "club_id": "3ff214f3-9dee-5b5e-b6ce-918e6c48c9a5",
+      "team_id": "a7ae3da7-aa7d-5308-a671-4ab8a6bcf990",
+      "source_header": "Gazelle Football Academie",
+      "calendar_alias": "GAZELLE FA",
+      "aliases": []
+    },
+    {
+      "name": "Aigle Royal du Moungo",
+      "club_id": "ee6d863a-ea86-5245-a497-e03078356199",
+      "team_id": "8937a064-e6f9-5044-a9af-d23abf81149d",
+      "source_header": "Aigle Royal du Moungo",
+      "calendar_alias": "AIGLE DU MOUNGO",
+      "aliases": []
+    },
+    {
+      "name": "Panthère Sportive du Ndé",
+      "club_id": "c9a9d301-37e3-5e6f-8ddf-427cb7b4b13d",
+      "team_id": "2cd55fec-bc99-56b6-bb49-cb78f0973b42",
+      "source_header": "Panthère Sportive du Ndé-Nzuimanto SA",
+      "calendar_alias": "PANTHERE SPORTIVE",
+      "aliases": ["PANTHE SPORTIVE"]
+    },
+    {
+      "name": "Fauve Azur Elite de Yaoundé",
+      "club_id": "e3ae6613-8c09-5f8c-a54f-8fd018c99bfa",
+      "team_id": "88ea1b35-8f90-5ac0-83a2-7e5c207528dc",
+      "source_header": "Fauve Azur Elite",
+      "calendar_alias": "FAUVE AZUR",
+      "aliases": ["Fauve Azur Elite"]
+    },
+    {
+      "name": "Unisport du Haut-Nkam",
+      "club_id": "8fa89d20-09c2-56f1-91fd-2d67285f7817",
+      "team_id": "a93223d3-719d-52fa-a1ab-dcea3a3c16e4",
+      "source_header": "Unisport Football Club du Haut Nkam",
+      "calendar_alias": "UNISPORT",
+      "aliases": ["Unisport de Bafang"]
+    },
+    {
+      "name": "Aigle Royal de la Menoua",
+      "club_id": "a4d3af04-9ada-5be5-8fad-081008164ff7",
+      "team_id": "40c5303b-e078-5fc5-a947-fd24092f2114",
+      "source_header": "Aigle Royal de la Menoua",
+      "calendar_alias": "AIGLE DE LA MENOUA",
+      "aliases": []
+    },
+    {
+      "name": "Victoria United de Limbe",
+      "club_id": "ad979a89-70a5-5583-b096-9f10f7ca9a45",
+      "team_id": "48484130-a7ed-52a7-8fcb-d6b5cb3318de",
+      "source_header": "Victoria United FC",
+      "calendar_alias": "VICTORIA UNITED",
+      "aliases": ["Victoria United Limbe", "Victoria United of Limbe"]
+    },
+    {
+      "name": "PWD de Bamenda",
+      "club_id": "ed6b876a-a4af-51b3-a1a1-23a33f9ef3e5",
+      "team_id": "67513972-7da6-509f-8672-47047d8e079e",
+      "source_header": "PWD de Bamenda",
+      "calendar_alias": "PWD DE BAMENDA",
+      "aliases": []
+    },
+    {
+      "name": "Stade Renard de Melong",
+      "club_id": "630c7abc-556e-5170-8b59-fdbb283c68b0",
+      "team_id": "417c0b1c-0fc1-501e-a476-f7c4798ede6e",
+      "source_header": "Stade Renard de Melong",
+      "calendar_alias": "STADE RENARD",
+      "aliases": []
+    }
+  ]
+}
