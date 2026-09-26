@@ -13,8 +13,8 @@ export default async function HomePage() {
     <div className="page-stack">
       <section className="home-hero">
         <p className="eyebrow">Courrier Sportif</p>
-        <h1>Le football camerounais, au même endroit.</h1>
-        <p>Des données validées, présentées sans remplir les blancs avec du contenu inventé.</p>
+        <h1>Tout le sport camerounais au même endroit.</h1>
+        <p>Données, statistique, tendance et plus.</p>
         <Link className="button button-primary" href="/competitions">
           Voir les compétitions
         </Link>
